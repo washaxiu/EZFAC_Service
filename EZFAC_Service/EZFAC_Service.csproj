@@ -72,8 +72,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="fabCloud\database\db.py" />
+    <None Include="fabCloud\task\task.py" />
+    <None Include="fabCloud\task\ykk.py" />
     <None Include="fabCloud\web\handle\Configure.py" />
     <None Include="fabCloud\task\configure.py" />
+    <None Include="fabCloud\web\handle\Ykk.py" />
     <None Include="fabCloud\web\urls.py" />
     <None Include="fabCloud\ykk\urls.py" />
   </ItemGroup>

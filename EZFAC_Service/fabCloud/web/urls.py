@@ -11,6 +11,7 @@ from web.handle.Management import *
 from web.handle.Configure import *
 from web.handle.Monitor import *
 from web.handle.Dashboard import *
+from web.handle.Ykk import *
 
 URLS = [
     (r"/", HomeHandler),
@@ -51,5 +52,8 @@ URLS = [
     (r"/get-device-status", GetDeviceStatusHandler),
     (r"/get-alarm-info", GetAlarmHandler),
     (r"/get-user-radio", GetRadioHandler),
+	# ykk
+	(r"/get-checkRecord-list", GetCheckRecordListHandler),
+	(r"/add-checkRecord", AddCheckRecordHandler),
 
 ]
