@@ -89,6 +89,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="dll\Newtonsoft.Json.dll" />
     <Content Include="fabCloud\database\create_db.sql" />
   </ItemGroup>
   <ItemGroup>
