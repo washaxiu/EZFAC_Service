@@ -1010,5 +1010,30 @@ def init(db_type, db_schema=None, db_host=None, db_port=0, db_user=None, db_pass
     else:
         raise DBError('Unsupported db: %s' % db_type)
 
+@with_db_connection
+def query_by_filename(table, key):
+    try:
+        key_names = list(key.keys())
+        key_values = list(key.values())
+        length = len(key_names)
+    except:
+        log.logger.error("the type of key must be dictionary")
+        return None
 
+    sql_query = "SELECT * FROM " + table + " WHERE "
+    for i in range(0, length):
+        sql_query += key_names[i]
+        sql_query += " = "
+        sql_query += "\""
+        sql_query += str(key_values[i])
+        sql_query += "\""
+        if i != (length-1):
+            sql_query += " && "
+
+    ret = _select(sql_query, True)
+    if ret is False:
+        ret = _select(sql_query, True)
+        if ret is False:
+            return None
+    return ret
 
