@@ -91,10 +91,10 @@
   <ItemGroup>
     <Content Include="dll\Newtonsoft.Json.dll" />
     <Content Include="fabCloud\database\create_db.sql" />
+    <None Include="fabCloud\task\ykk2.py" />
+    <None Include="fabCloud\ykk\handle\Ykk2.py" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="fabCloud\ykk\handle\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
