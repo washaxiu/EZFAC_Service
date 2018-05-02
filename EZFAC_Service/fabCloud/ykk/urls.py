@@ -11,6 +11,7 @@ from ykk.handle.Management import *
 from ykk.handle.Configure import *
 from ykk.handle.Monitor import *
 from ykk.handle.Dashboard import *
+from ykk.handle.Ykk import *
 
 URLS = [
     (r"/", HomeHandler),
@@ -51,5 +52,8 @@ URLS = [
     (r"/get-device-status", GetDeviceStatusHandler),
     (r"/get-alarm-info", GetAlarmHandler),
     (r"/get-user-radio", GetRadioHandler),
+	# ykk
+	(r"/get-checkRecord-list", GetCheckRecordListHandler),
+	#(r"/add-checkRecord", AddCheckRecordHandler),
 
 ]

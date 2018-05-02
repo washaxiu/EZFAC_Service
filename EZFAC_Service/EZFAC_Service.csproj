@@ -78,6 +78,7 @@
     <None Include="fabCloud\task\configure.py" />
     <None Include="fabCloud\web\handle\Ykk.py" />
     <None Include="fabCloud\web\urls.py" />
+    <None Include="fabCloud\ykk\handle\Ykk.py" />
     <None Include="fabCloud\ykk\urls.py" />
   </ItemGroup>
   <ItemGroup>
@@ -92,9 +93,7 @@
     <Content Include="dll\Newtonsoft.Json.dll" />
     <Content Include="fabCloud\database\create_db.sql" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="fabCloud\ykk\handle\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
