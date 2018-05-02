@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\NewtonJson\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
@@ -50,7 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\JsonHelper.cs" />
     <Compile Include="Common\WebHandle.cs" />
     <Compile Include="model\CheckerInfo.cs" />
     <Compile Include="model\CheckRecord.cs" />
@@ -89,7 +85,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="dll\Newtonsoft.Json.dll" />
+    <Content Include="dataFile\ykk.sql" />
     <Content Include="fabCloud\database\create_db.sql" />
   </ItemGroup>
   <ItemGroup>
