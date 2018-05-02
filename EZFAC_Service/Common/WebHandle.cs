@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 using System.Net;
 using System.IO;
 
@@ -11,63 +10,38 @@ namespace EZFAC_Service.Common
 {
     class WebHandle
     {
-        public string POST(string url, Dictionary<String, String> param)
+        public static string Post(string url, Dictionary<string, string> dic)
         {
-            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest; //创建请求
-            CookieContainer cookieContainer = new CookieContainer();
-            request.CookieContainer = cookieContainer;
-            request.AllowAutoRedirect = true;
-            request.MaximumResponseHeadersLength = 1024;
-            request.Method = "POST"; //请求方式为post
-            request.ContentType = "application/json";
-            JObject json = new JObject();
-            if (param.Count != 0) //将参数添加到json对象中
+            string result = "";
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+            req.Method = "POST";
+            req.ContentType = "application/x-www-form-urlencoded";
+            #region 添加Post 参数
+            StringBuilder builder = new StringBuilder();
+            int i = 0;
+            foreach (var item in dic)
             {
-                foreach (var item in param)
-                {
-                    json.Add(item.Key, item.Value);
-                }
+                if (i > 0)
+                    builder.Append("&");
+                builder.AppendFormat("{0}={1}", item.Key, item.Value);
+                i++;
             }
-            string jsonstring = json.ToString();//获得参数的json字符串
-            byte[] jsonbyte = Encoding.UTF8.GetBytes(jsonstring);
-            Stream postStream = request.GetRequestStream();
-            postStream.Write(jsonbyte, 0, jsonbyte.Length);
-            postStream.Close();
-            //发送请求并获取相应回应数据       
-            HttpWebResponse res;
-            try
+            byte[] data = Encoding.ASCII.GetBytes(builder.ToString());
+            req.ContentLength = data.Length;
+            using (Stream reqStream = req.GetRequestStream())
             {
-                res = (HttpWebResponse)request.GetResponse();
-
+                reqStream.Write(data, 0, data.Length);
+                reqStream.Close();
             }
-            catch (WebException ex)
+            #endregion
+            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+            Stream stream = resp.GetResponseStream();
+            //获取响应内容
+            using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
             {
-                res = (HttpWebResponse)ex.Response;
+                result = reader.ReadToEnd();
             }
-            StreamReader sr = new StreamReader(res.GetResponseStream(), Encoding.UTF8);
-            string content = sr.ReadToEnd(); //获得响应字符串
-            return content;
-        }
-
-        public string GetHttpResponse(string url, int Timeout)
-        {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            // 为URL添加cookie
-            request.CookieContainer = new CookieContainer();
-            request.CookieContainer.Add(new Cookie());
-            request.Method = "GET";
-            request.ContentType = "text/html;charset=UTF-8";
-            request.UserAgent = null;
-            request.Timeout = Timeout;
-
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Stream myResponseStream = response.GetResponseStream();
-            StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
-            string retString = myStreamReader.ReadToEnd();
-            myStreamReader.Close();
-            myResponseStream.Close();
-
-            return retString;
+            return result;
         }
     }
 }

@@ -56,4 +56,8 @@ URLS = [
 	(r"/get-checkRecord-list", GetCheckRecordListHandler),
 	#(r"/add-checkRecord", AddCheckRecordHandler),
 
+	# ykk2
+	(r"/get-maintenanceLog", GetMaintenanceLogHandler),
+	(r"/get-semiFinishedCheck", GetSemiFinishedCheckHandler),
+	(r"/get-YZGCMonthRecord", GetYZGCMonthRecordHandler),
 ]
