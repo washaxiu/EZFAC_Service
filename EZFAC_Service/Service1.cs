@@ -1,4 +1,5 @@
 ﻿using EZFAC_Service.Common;
+using EZFAC_Service.service;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,13 +20,14 @@ namespace EZFAC_Service
         private int count = 0;
         private Timer timer1;
         private WebHandle wenHandle;
+        public string dirPath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyPictures).Replace("\\", "/");
 
         public Service1()
         {
             InitializeComponent();
             timer1 = new Timer();
             wenHandle = new WebHandle();
-            timer1.Interval = 5000;
+            timer1.Interval = 1000*60*10;
             timer1.Elapsed += new ElapsedEventHandler(timer1_Elapsed);
             timer1.Enabled = true;
         }
@@ -48,33 +50,10 @@ namespace EZFAC_Service
             // 1. 访问接口
             // 2. 记录日志
             // this.WriteLog(++count+" : 数据获取");
-            this.getContent();
+            CheckRecordService.handleFileDate(dirPath+"/CheckRecord");
         }
 
-        private void getContent()
-        {
-            string path = @"d:\log\";
-            path += DateTime.Now.Year + "_" + DateTime.Now.Month + "_access_log.txt";
-            FileInfo file = new FileInfo(path);
-            if (!file.Exists)
-            {
-                FileStream fs;
-                fs = File.Create(path);
-                fs.Close();
-            }
-            Dictionary<String, String> param = new Dictionary<string, string>();
-            param.Add("username", "admin");
-            param.Add("password", "password");
-            using (FileStream fs = new FileStream(path, FileMode.Append, FileAccess.Write))
-            {
-                using (StreamWriter sw = new StreamWriter(fs))
-                {
-                    sw.WriteLine("获取数据");
-                    sw.WriteLine(wenHandle.POST("192.168.2.141:8000", param));
-                    sw.WriteLine("获取结束");
-                }
-            }
-        }
+        
 
         private void WriteLog(string msg)
         {

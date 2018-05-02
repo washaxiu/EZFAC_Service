@@ -47,9 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\CommonUtils.cs" />
     <Compile Include="Common\WebHandle.cs" />
+    <Compile Include="model\Check.cs" />
     <Compile Include="model\CheckerInfo.cs" />
-    <Compile Include="model\CheckRecord.cs" />
+    <Compile Include="model\CheckContent.cs" />
+    <Compile Include="model\CheckInfo.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -64,6 +67,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="service\CheckRecordService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
