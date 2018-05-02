@@ -11,9 +11,9 @@ import os
 
 @app.task
 @use_db
-def get_checkRecord_list_task():
+def get_checkRecord_list_task(table_name):
     line_list_dicts = []
-    line_lists = db.query_by_filename("CHECK_RECORD", {"fileName": "ykk_record_A_01_2017-08-05"})
+    line_lists = db.query_by_filename(table_name, {"fileName": "ykk_record_A_01_2017-08-05"})
     if len(line_list_dicts) != 0:
          return line_list_dicts
     else:

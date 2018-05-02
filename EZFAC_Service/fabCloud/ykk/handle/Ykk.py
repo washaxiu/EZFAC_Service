@@ -26,7 +26,8 @@ class GetCheckRecordListHandler(BaseHandler):
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def get(self, *args, **kwargs):
-        resp = yield tornado.gen.Task(task.get_checkRecord_list_task.apply_async, args=[])
+		table_name = self.get_argument("table_name")
+        resp = yield tornado.gen.Task(task.get_checkRecord_list_task.apply_async, args=[table_name])
         resp_json = json.dumps(resp.result)
         self.write(resp_json)
 
