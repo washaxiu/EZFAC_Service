@@ -8,8 +8,18 @@ namespace EZFAC_Service.model
 {
     class CheckerInfo
     {
-        private string id { get; set; }
-        private string fileName { get; set; }
+        public CheckerInfo() { }
+
+        public CheckerInfo(string name, string level, string check,
+              string edit, string date, string comments)
+        {
+            this.name = name;
+            this.level = level;
+            this.check = check;
+            this.edit = edit;
+            this.date = date;
+            this.comments = comments;
+        }
         private string name { get; set; }
         private string level { get; set; }
         private string check { get; set; }
