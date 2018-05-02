@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EZFAC_Service.Common;
+using EZFAC_Service.model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,36 +13,44 @@ namespace EZFAC_Service.service
     {
         public static void handleFileDate(string ditPath)
         {
+         //   WriteLog("开始获取数据:" + ditPath);
             DirectoryInfo dir = new DirectoryInfo(@ditPath);
             FileInfo[] files = dir.GetFiles();
-            StreamReader myStreamReader = null;
-            string content = null;
-            string[] str = null;
+            Check check = null;
+            Dictionary<string, string> dic = null;
             for (int i = 0; i < files.Count(); i++)
             {
-                myStreamReader = new StreamReader(files[i].FullName);    // 读取文件数据
-                content = myStreamReader.ReadToEnd().Replace("   ", "").Replace("\"", "").Replace(",", "");
-                str = content.Split('\n');
-                for (int j = 0; j < str.Count(); j++)
+                WriteLog(files[i].FullName);
+                check = CommonUtils.handleFile(files[i]);
+                WriteLog("输出数据1:");
+                dic = CommonUtils.getDictionary(check);
+                WriteLog("输出数据2:");
+                foreach (string key in dic.Keys)
                 {
-                    if (str[i].IndexOf(":") != -1)
-                    {
-                        string[] st = str[i].Trim().Split(':');
+                    WriteLog(key + "  ---> " + dic[key]);
+                }
+              //  WriteLog(dic.Keys.ToList().ToString());
+            }
+        }
 
-                        if (st[1].Equals("["))
-                        {
-                            //  Console.WriteLine("%%%%%%%%%%%%%%%%");
-                        }
-                        else
-                        {
-                            if (st[1].Equals(""))
-                            {
-                                Console.WriteLine("########");
-                            }
-                            Console.WriteLine(st[0] + "---->" + st[1]);
-                        }
-                        // else Console.WriteLine(str[i] + "-------", + st.Count());
-                    }
+        public static void WriteLog(string msg)
+        {
+            //该日志文件会存在windows服务程序目录下
+            string path = @"e:\log\";
+            path += DateTime.Now.Year + "_" + DateTime.Now.Month + "_access_log.txt";
+            FileInfo file = new FileInfo(path);
+            if (!file.Exists)
+            {
+                FileStream fs;
+                fs = File.Create(path);
+                fs.Close();
+            }
+
+            using (FileStream fs = new FileStream(path, FileMode.Append, FileAccess.Write))
+            {
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    sw.WriteLine(DateTime.Now.ToString() + "   " + msg);
                 }
             }
         }

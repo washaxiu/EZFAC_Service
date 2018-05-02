@@ -18,9 +18,9 @@ namespace EZFAC_Service.model
             this.number = number;
         }
 
-        private string fileName { get; set; }
-        private string type { get; set; }
-        private string group { get; set; }
-        private string number { get; set; }
+        public string fileName { get; set; }
+        public string type { get; set; }
+        public string group { get; set; }
+        public string number { get; set; }
     }
 }

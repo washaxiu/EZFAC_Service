@@ -20,20 +20,37 @@ namespace EZFAC_Service
         private int count = 0;
         private Timer timer1;
         private WebHandle wenHandle;
-        public string dirPath = System.Environment.GetFolderPath(Environment.SpecialFolder.MyPictures).Replace("\\", "/");
+        public string sourcePath;
 
         public Service1()
         {
             InitializeComponent();
             timer1 = new Timer();
             wenHandle = new WebHandle();
-            timer1.Interval = 1000*60*10;
+            timer1.Interval = 1000*5;
             timer1.Elapsed += new ElapsedEventHandler(timer1_Elapsed);
             timer1.Enabled = true;
+
+            string path = "C:/Users/", dirPath = null;
+            DirectoryInfo dir = new DirectoryInfo(@path);
+
+            DirectoryInfo[] childDir = dir.GetDirectories();
+            FileInfo file = null;
+            for (int i = 0; i < childDir.Count(); i++)
+            {
+                dirPath = childDir[i].FullName.Replace("\\", "/") + "/Pictures/user.json";
+                file = new FileInfo(@dirPath);
+                if (file.Exists)
+                {
+                    WriteLog(dirPath);
+                    sourcePath = childDir[i].FullName.Replace("\\", "/")+ "/Pictures";
+                }
+            }
         }
 
         protected override void OnStart(string[] args)
         {
+            
             timer1.Start();
             this.WriteLog("【服务启动】");
         }
@@ -50,7 +67,15 @@ namespace EZFAC_Service
             // 1. 访问接口
             // 2. 记录日志
             // this.WriteLog(++count+" : 数据获取");
-            CheckRecordService.handleFileDate(dirPath+"/CheckRecord");
+            //    string path = AppDomain.CurrentDomain.BaseDirectory;
+
+            //  WriteLog("图片目录:" + Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
+
+            //    string checkRecordDir = dirPath + "/CheckRecord";
+            //   WriteLog(sb.ToString());
+            StringBuilder sb = new StringBuilder(sourcePath);
+            sb.Append("/CheckRecord");
+            CheckRecordService.handleFileDate(sb.ToString());
         }
 
         
@@ -58,7 +83,7 @@ namespace EZFAC_Service
         private void WriteLog(string msg)
         {
             //该日志文件会存在windows服务程序目录下
-            string path = @"d:\log\";
+            string path = @"e:\log\";
             path += DateTime.Now.Year + "_" + DateTime.Now.Month + "_access_log.txt";
             FileInfo file = new FileInfo(path);
             if (!file.Exists)
@@ -75,6 +100,26 @@ namespace EZFAC_Service
                     sw.WriteLine(DateTime.Now.ToString() + "   " + msg);
                 }
             }
+        }
+
+        public static string testGet()
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.80.254:8800/get-line-list");
+            // 为URL添加cookie
+            request.CookieContainer = new CookieContainer();
+            request.Method = "GET";
+            request.ContentType = "text/html;charset=UTF-8";
+            request.UserAgent = null;
+            request.Timeout = 10000;
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream myResponseStream = response.GetResponseStream();
+            StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
+            string retString = myStreamReader.ReadToEnd();
+            myStreamReader.Close();
+            myResponseStream.Close();
+
+            return retString;
         }
 
     }

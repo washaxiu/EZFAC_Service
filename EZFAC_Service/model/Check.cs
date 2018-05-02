@@ -18,8 +18,8 @@ namespace EZFAC_Service.model
             this.checkerInfo = checkerInfo;
         }
 
-        private CheckInfo checkInfo { get; set; }
-        private List<CheckContent> checkContent { get; set; }
-        private List<CheckerInfo> checkerInfo { get; set; }
+        public CheckInfo checkInfo { get; set; }
+        public List<CheckContent> checkContent { get; set; }
+        public List<CheckerInfo> checkerInfo { get; set; }
     }
 }

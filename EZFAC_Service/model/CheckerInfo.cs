@@ -20,11 +20,11 @@ namespace EZFAC_Service.model
             this.date = date;
             this.comments = comments;
         }
-        private string name { get; set; }
-        private string level { get; set; }
-        private string check { get; set; }
-        private string edit { get; set; }
-        private string date { get; set; }
-        private string comments { get; set; }
+        public string name { get; set; }
+        public string level { get; set; }
+        public string check { get; set; }
+        public string edit { get; set; }
+        public string date { get; set; }
+        public string comments { get; set; }
     }
 }
