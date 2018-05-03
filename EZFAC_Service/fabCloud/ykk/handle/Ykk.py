@@ -26,12 +26,12 @@ class GetCheckRecordListHandler(BaseHandler):
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def get(self, *args, **kwargs):
-		table_name = self.get_argument("table_name")
+        table_name = self.get_argument("table_name")
         resp = yield tornado.gen.Task(task.get_checkRecord_list_task.apply_async, args=[table_name])
         resp_json = json.dumps(resp.result)
         self.write(resp_json)
 
-#class AddCheckRecordHandler(BaseHandler):
+class AddCheckRecordHandler(BaseHandler):
     @BaseHandler.auth
     @tornado.web.asynchronous
     @tornado.gen.coroutine
@@ -67,7 +67,7 @@ class GetCheckRecordListHandler(BaseHandler):
           checkerEdit = self.get_argument("checkerEdit")
           check = self.get_argument("check")
           level = self.get_argument("level")
-		  checkRecord = {"fileName":fileName,"type":type,"group1":group1,"number":number,"temp1":temp1,
+          checkRecord = {"fileName":fileName,"type":type,"group1":group1,"number":number,"temp1":temp1,
 		                "temp2":temp2,"temp3":temp3,"loop1":loop1,"loop2":loop2,"loop3":loop3,
 						"select1":select1,"select1":select1,"edit":checkEdit}
           resp = yield tornado.gen.Task(task.add_checkRecord_task.apply_async, args=[checkRecord])

@@ -29,6 +29,7 @@ namespace EZFAC_Service.service
                 {
                     WriteLog(key + "  ---> " + dic[key]);
                 }
+                WebHandle.Post("http://192.168.2.149:8800/add-checkRecord", dic);
               //  WriteLog(dic.Keys.ToList().ToString());
             }
         }

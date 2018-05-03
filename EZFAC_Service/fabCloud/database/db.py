@@ -1046,17 +1046,14 @@ def insertOrUpdate(table, record):
         log.logger.error("the type of record must be dictionary")
         return False
 
-	update_name=""
     str_name = "("
     for i in range(0, length):
-	    update_name = update_name + record_keys[i] +"=values("+record_keys[i]+")"
         if i == (length-1):
             str_name += record_keys[i]
             str_name += ")"
         else:
             str_name += record_keys[i]
             str_name += ","
-			update_name +=","
     str_value = "("
     for i in range(0, length):
         if i == (length-1):
@@ -1069,9 +1066,9 @@ def insertOrUpdate(table, record):
             str_value += ")s,"
     update_name=""
     for i in range(1, length):
-	    update_name = update_name + record_keys[i] +"=values("+record_keys[i]+")"
+        update_name = update_name + record_keys[i] +"=values("+record_keys[i]+")"
         if i != (length-1):
-			update_name +=","
+            update_name +=","
     sql_insert = "INSERT INTO " + table + " " + str_name + " VALUES " + str_value + " ON DUPLICATE KEY UPDATE "+update_name
 
     ret = _update(sql_insert, record)

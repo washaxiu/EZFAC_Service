@@ -19,13 +19,12 @@ def get_checkRecord_list_task(table_name):
     else:
         return None
 
-		@app.task
-
+@app.task
 @use_db
 def add_checkRecord_task(cfg):
     ret = False
-	if len(cfg) !=0:
-		ret = db.insertOrUpdate("CHECK_RECORD",{'fileName': cfg['fileName'], 'type': cfg['type'],
+    if len(cfg) !=0:
+        ret = db.insertOrUpdate("CHECK_RECORD",{'fileName': cfg['fileName'], 'type': cfg['type'],
                                         'group1': cfg['group1'], 'number': cfg['number'],
                                         'temp1': cfg['temp1'], 'temp2': cfg['temp2'],
                                         'temp3': cfg['temp3'], 'loop1': cfg['loop1'],
