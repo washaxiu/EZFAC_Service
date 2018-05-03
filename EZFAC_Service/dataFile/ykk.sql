@@ -42,7 +42,6 @@ CREATE TABLE IF NOT EXISTS `ykk`.`CHECK_RECORD` (
        `loop3`           VARCHAR(255),
        `select1`         VARCHAR(255),
        `plat1`           VARCHAR(255),
-       `status`          VARCHAR(255) comment '状态',
        `edit`            VARCHAR(255) comment '是否编辑 0否 1是',
        `createDate`      VARCHAR(255) comment '创建时间',
 		PRIMARY KEY (`fileName`)

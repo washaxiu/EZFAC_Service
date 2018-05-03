@@ -1037,3 +1037,48 @@ def query_by_filename(table, key):
             return None
     return ret
 
+@with_db_connection
+def insertOrUpdate(table, record):
+    try:
+        record_keys = list(record.keys())
+        length = len(record_keys)
+    except:
+        log.logger.error("the type of record must be dictionary")
+        return False
+
+	update_name=""
+    str_name = "("
+    for i in range(0, length):
+	    update_name = update_name + record_keys[i] +"=values("+record_keys[i]+")"
+        if i == (length-1):
+            str_name += record_keys[i]
+            str_name += ")"
+        else:
+            str_name += record_keys[i]
+            str_name += ","
+			update_name +=","
+    str_value = "("
+    for i in range(0, length):
+        if i == (length-1):
+            str_value += "%("
+            str_value += record_keys[i]
+            str_value += ")s)"
+        else:
+            str_value += "%("
+            str_value += record_keys[i]
+            str_value += ")s,"
+    update_name=""
+    for i in range(1, length):
+	    update_name = update_name + record_keys[i] +"=values("+record_keys[i]+")"
+        if i != (length-1):
+			update_name +=","
+    sql_insert = "INSERT INTO " + table + " " + str_name + " VALUES " + str_value + " ON DUPLICATE KEY UPDATE "+update_name
+
+    ret = _update(sql_insert, record)
+    if ret == 0:
+        ret = _update(sql_insert, record)
+    if ret > 0:
+        return True
+    else:
+        return False
+

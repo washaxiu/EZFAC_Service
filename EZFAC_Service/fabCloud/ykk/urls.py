@@ -12,6 +12,7 @@ from ykk.handle.Configure import *
 from ykk.handle.Monitor import *
 from ykk.handle.Dashboard import *
 from ykk.handle.Ykk import *
+from ykk.handle.Ykk2 import *
 
 URLS = [
     (r"/", HomeHandler),
@@ -53,11 +54,12 @@ URLS = [
     (r"/get-alarm-info", GetAlarmHandler),
     (r"/get-user-radio", GetRadioHandler),
 	# ykk
-	(r"/get-checkRecord-list", GetCheckRecordListHandler),
-	#(r"/add-checkRecord", AddCheckRecordHandler),
+    (r"/get-checkRecord-list", GetCheckRecordListHandler),
+    (r"/add-checkRecord", AddCheckRecordHandler),
 
 	# ykk2
-	(r"/get-maintenanceLog", GetMaintenanceLogHandler),
-	(r"/get-semiFinishedCheck", GetSemiFinishedCheckHandler),
-	(r"/get-YZGCMonthRecord", GetYZGCMonthRecordHandler),
+    (r"/get-maintenanceLog", GetMaintenanceLogHandler),
+    (r"/get-semiFinishedCheck", GetSemiFinishedCheckHandler),
+    (r"/get-YZGCMonthRecord", GetYZGCMonthRecordHandler),
+
 ]

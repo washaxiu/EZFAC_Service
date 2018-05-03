@@ -32,11 +32,43 @@ class GetCheckRecordListHandler(BaseHandler):
         self.write(resp_json)
 
 #class AddCheckRecordHandler(BaseHandler):
-#	@BaseHandler.auth
-#	@tornado.web.asynchronous
-#	@tornado.gen.coroutine
-#	def post(self, *args, **kwargs):
-        # devid = int(self.get_argument("device_id"))
-        # delkey = {"id": devid}
-        # resp = yield tornado.gen.Task(task.delete_device_task.apply_async, args=[delkey])
-        # return self.render("device.html")
+    @BaseHandler.auth
+    @tornado.web.asynchronous
+    @tornado.gen.coroutine
+    def post(self, *args, **kwargs):
+          fileName = self.get_argument("fileName")
+          type = self.get_argument("type")
+          group1 = self.get_argument("group")
+          number = self.get_argument("number")
+          temp1 = self.get_argument("Temp1")
+          temp2 = self.get_argument("Temp2")
+          temp3 = self.get_argument("Temp3")
+          loop1 = self.get_argument("Loop1")
+          loop2 = self.get_argument("Loop2")
+          loop3 = self.get_argument("Loop3")
+          select1 = self.get_argument("Select1")
+          plat1 = self.get_argument("Plat1")
+          checkEdit = self.get_argument("checkEdit")
+          name1 = self.get_argument("name1")
+          name2 = self.get_argument("name2")
+          name3 = self.get_argument("name3")
+          name4 = self.get_argument("name4")
+          name5 = self.get_argument("name5")
+          date1 = self.get_argument("date1")
+          date2 = self.get_argument("date2")
+          date3 = self.get_argument("date3")
+          date4 = self.get_argument("date4")
+          date5 = self.get_argument("date5")
+          comments1 = self.get_argument("comments1")
+          comments2 = self.get_argument("comments2")
+          comments3 = self.get_argument("comments3")
+          comments4 = self.get_argument("comments4")
+          comments5 = self.get_argument("comments5")
+          checkerEdit = self.get_argument("checkerEdit")
+          check = self.get_argument("check")
+          level = self.get_argument("level")
+		  checkRecord = {"fileName":fileName,"type":type,"group1":group1,"number":number,"temp1":temp1,
+		                "temp2":temp2,"temp3":temp3,"loop1":loop1,"loop2":loop2,"loop3":loop3,
+						"select1":select1,"select1":select1,"edit":checkEdit}
+          resp = yield tornado.gen.Task(task.add_checkRecord_task.apply_async, args=[checkRecord])
+          return self.render("device.html")
