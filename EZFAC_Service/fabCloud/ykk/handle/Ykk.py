@@ -21,13 +21,23 @@ from ykk.handle.HomeHandler import BaseHandler
     Device ykk Handler
 """
 
+class GetUserInfoHandler(BaseHandler):
+    @BaseHandler.auth
+    @tornado.web.asynchronous
+    @tornado.gen.coroutine
+    def get(self, *args, **kwargs):
+        resp = yield tornado.gen.Task(task.get_userInfo_task.apply_async, args=[])
+        resp_json = json.dumps(resp.result)
+        self.write(resp_json)
+
 class GetCheckRecordListHandler(BaseHandler):
     @BaseHandler.auth
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def get(self, *args, **kwargs):
         table_name = self.get_argument("table_name")
-        cfg = {"table_name":table_name}
+        level = self.get_argument("level")
+        cfg = {"table_name":table_name,"level":level}
         resp = yield tornado.gen.Task(task.get_checkRecord_list_task.apply_async, args=[cfg])
         resp_json = json.dumps(resp.result)
         self.write(resp_json)

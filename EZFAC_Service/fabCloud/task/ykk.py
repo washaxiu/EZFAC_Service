@@ -12,12 +12,10 @@ import os
 @app.task
 @use_db
 def get_checkRecord_list_task(cfg):
-    line_list_dicts = []
-    line_lists = db.query_by_filename(cfg['table_name'], {"fileName": "ykk_record_A_01_2017-08-05.ykk"})
-    if len(line_lists) != 0:
-         return line_lists
-    else:
-        return None
+    table_name = cfg['table_name']
+    level = cfg['level']
+    line_lists = db.query_dateInfo(table_name, level)
+    return line_lists
 
 @app.task
 @use_db
