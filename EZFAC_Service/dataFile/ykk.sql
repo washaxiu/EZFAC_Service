@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS  `ykk`.`CHECKER_INFO`(
 	   `name4`            VARCHAR(255) comment '审批人名称',
 	   `name5`            VARCHAR(255) comment '审批人名称',
        `level`            VARCHAR(255) comment '审批人等级',
-       `check`            VARCHAR(255) comment '是否审批',
+       `isCheck`          VARCHAR(255) comment '是否审批',
        `edit`             VARCHAR(255) comment '是否编辑',
        `date1`            VARCHAR(255) comment '审批时间',
 	   `date2`            VARCHAR(255) comment '审批时间',
@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS `ykk`.`CHECK_RECORD` ;
 CREATE TABLE IF NOT EXISTS `ykk`.`CHECK_RECORD` (
        `fileName`        VARCHAR(255) not null comment '文件名',
        `type`            VARCHAR(255) comment '点检类型',
-       `group`           VARCHAR(255) comment '机组',
+       `group1`          VARCHAR(255) comment '机组',
        `number`          VARCHAR(255) comment '机番',
        `temp1`           VARCHAR(255),
        `temp2`           VARCHAR(255),
