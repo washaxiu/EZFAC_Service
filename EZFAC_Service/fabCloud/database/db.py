@@ -525,16 +525,6 @@ def query_all(table):
     return ret
 
 @with_db_connection
-def query_dateInfo(table, level):
-    sql_query = "SELECT * FROM CHECKER_INFO a, " + table + " b WHERE a.fileName = b.fileName and a.level = " + level
-    ret = _select(sql_query, False)
-    if ret is False:
-        ret = _select(sql_query, False)
-        if ret is False:
-            return None
-    return ret
-
-@with_db_connection
 def query_records_num(table, key, field=None, **params):
     is_and = True
     if key:
@@ -1042,6 +1032,16 @@ def query_by_filename(table, key):
     ret = _select(sql_query, True)
     if ret is False:
         ret = _select(sql_query, True)
+        if ret is False:
+            return None
+    return ret
+
+@with_db_connection
+def query_dataInfo(table, level):
+    sql_query = "SELECT * FROM CHECKER_INFO a, " + table + " b WHERE a.fileName = b.fileName and a.level = " + level
+    ret = _select(sql_query, False)
+    if ret is False:
+        ret = _select(sql_query, False)
         if ret is False:
             return None
     return ret
