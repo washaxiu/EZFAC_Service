@@ -21,6 +21,7 @@ namespace EZFAC_Service
         private Timer timer1;
         private WebHandle wenHandle;
         public string sourcePath;
+        public static string checkRecordUrl = "http://192.168.2.149:8800/add-checkRecord";
 
         public Service1()
         {
@@ -73,9 +74,7 @@ namespace EZFAC_Service
 
             //    string checkRecordDir = dirPath + "/CheckRecord";
             //   WriteLog(sb.ToString());
-            StringBuilder sb = new StringBuilder(sourcePath);
-            sb.Append("/CheckRecord");
-            CheckRecordService.handleFileDate(sb.ToString());
+            CommonUtils.handleFileDate(sourcePath+ "/CheckRecord", checkRecordUrl);
         }
 
         

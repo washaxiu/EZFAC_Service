@@ -27,7 +27,8 @@ class GetCheckRecordListHandler(BaseHandler):
     @tornado.gen.coroutine
     def get(self, *args, **kwargs):
         table_name = self.get_argument("table_name")
-        resp = yield tornado.gen.Task(task.get_checkRecord_list_task.apply_async, args=[table_name])
+        cfg = {"table_name":table_name}
+        resp = yield tornado.gen.Task(task.get_checkRecord_list_task.apply_async, args=[cfg])
         resp_json = json.dumps(resp.result)
         self.write(resp_json)
 
@@ -68,7 +69,18 @@ class AddCheckRecordHandler(BaseHandler):
           check = self.get_argument("check")
           level = self.get_argument("level")
           checkRecord = {"fileName":fileName,"type":type,"group1":group1,"number":number,"temp1":temp1,
-		                "temp2":temp2,"temp3":temp3,"loop1":loop1,"loop2":loop2,"loop3":loop3,
-						"select1":select1,"select1":select1,"edit":checkEdit}
-          resp = yield tornado.gen.Task(task.add_checkRecord_task.apply_async, args=[checkRecord])
-          return self.render("device.html")
+		         "temp2":temp2,"temp3":temp3,"loop1":loop1,"loop2":loop2,"loop3":loop3,
+			 "select1":select1,"plat1":plat1,"edit":checkEdit}
+          checkerInfo = {"fileName":fileName,"name1":name1,"name2":name2,"name3":name3,"name4":name4,
+		         "name5":name5,"date1":date1,"date2":date2,"date3":date3,"date4":date4,
+			 "date5":date5,"comments1":comments1,"comments2":comments2,"comments3":comments3,
+			 "comments4":comments4,"comments5":comments5,"edit":checkerEdit,
+			 "isCheck":check,"level":level}
+          respCheck = yield tornado.gen.Task(task.add_checkRecord_task.apply_async, args=[checkRecord])
+          respChecker = yield tornado.gen.Task(task.add_checkerInfo_task.apply_async, args=[checkerInfo])
+          if respCheck.result == True and respChecker.result == True:
+            back_info = 1
+          else:
+            back_info = 0
+          respJson = json.dumps(back_info)
+          self.write(respJson)

@@ -1029,7 +1029,7 @@ def query_by_filename(table, key):
         sql_query += "\""
         if i != (length-1):
             sql_query += " && "
-
+    #log.logger.info('init getcheckList sql ----->'+sql_query)
     ret = _select(sql_query, True)
     if ret is False:
         ret = _select(sql_query, True)
@@ -1065,16 +1065,20 @@ def insertOrUpdate(table, record):
             str_value += record_keys[i]
             str_value += ")s,"
     update_name=""
-    for i in range(1, length):
-        update_name = update_name + record_keys[i] +"=values("+record_keys[i]+")"
-        if i != (length-1):
-            update_name +=","
+    flag = False
+    for i in range(0, length):
+        if record_keys[i] != "fileName":
+            if flag == True:
+                update_name += ","
+            update_name = update_name + record_keys[i] +"=values("+record_keys[i]+")"
+            flag = True   
     sql_insert = "INSERT INTO " + table + " " + str_name + " VALUES " + str_value + " ON DUPLICATE KEY UPDATE "+update_name
-
+    #log.logger.info('init getcheckList sql ----->'+sql_insert)
+    ret = -1
     ret = _update(sql_insert, record)
-    if ret == 0:
+    if ret == -1:
         ret = _update(sql_insert, record)
-    if ret > 0:
+    if ret >= 0:
         return True
     else:
         return False

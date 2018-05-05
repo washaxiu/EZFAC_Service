@@ -13,6 +13,33 @@ namespace EZFAC_Service.Common
         public static string[] name = { "name1", "name2", "name3", "name4", "name5" };
         public static string[] date = { "date1", "date2", "date3", "date4", "date5" };
         public static string[] comments = { "comments1", "comments2", "comments3", "comments4", "comments5" };
+        public static DateTime handledTime = DateTime.Parse("1900-01-01 00:00:00");
+
+
+        //  处理文件，并将文件内容以post的方式发送到服务器
+        public static void handleFileDate(string ditPath, string url)
+        {
+            //   WriteLog("开始获取数据:" + ditPath);
+            DirectoryInfo dir = new DirectoryInfo(@ditPath);
+            FileInfo[] files = dir.GetFiles();
+            Check check = null;
+            Dictionary<string, string> dic = null;
+            for (int i = 0; i < files.Count(); i++)
+            {
+                WriteLog(files[i].FullName);
+                if (files[i].Extension.Equals(".ykk"))       // 判断是否为ykk文件
+                {
+                    check = CommonUtils.handleFile(files[i]);
+                    dic = CommonUtils.getDictionary(check);
+                    foreach (string key in dic.Keys)
+                    {
+                        WriteLog(key + "  ---> " + dic[key]);
+                    }
+                  //  WebHandle.Post(url, dic);
+                }
+                //  WriteLog(dic.Keys.ToList().ToString());
+            }
+        }
 
         //  将文件的信息转化成相应的类
         public static Check handleFile(FileInfo file)
@@ -22,10 +49,10 @@ namespace EZFAC_Service.Common
             
             string[] str = content.Split('\n');
             string[] st = null;
-            List<string> checkInfoList = new List<string>();
+            Dictionary<string, string> checkInfoMap = new Dictionary<string, string>();
             List<string> checkContentList = new List<string>();
             List<string> checkerInfoList = new List<string>();
-            checkInfoList.Add(file.Name);
+            checkInfoMap.Add("fileName",file.Name);
             int count = 0;
             for (int i = 0; i < str.Count(); i++)
             {
@@ -41,7 +68,7 @@ namespace EZFAC_Service.Common
                     }
                     if (count == 1)
                     {
-                        checkInfoList.Add(st[1]);
+                        checkInfoMap.Add(st[0], st[1]);
                     }
                     else if (count == 2)
                     {
@@ -53,9 +80,6 @@ namespace EZFAC_Service.Common
                     }
                 }
             }
-            // 设置 文件中  checkInfo 的内容 ，并加上文件名
-            CheckInfo checkInfo = new CheckInfo(checkInfoList[0], checkInfoList[1], checkInfoList[2],
-                checkInfoList[3]);
             // 设置 文件中  content 的内容
             List<CheckContent> checkContent = new List<CheckContent>();
             for (int i=0;i< checkContentList.Count(); i+=3)
@@ -71,7 +95,7 @@ namespace EZFAC_Service.Common
                     checkerInfoList[i + 2], checkerInfoList[i + 3], checkerInfoList[i + 4],
                     checkerInfoList[i + 5]));
             }
-            return new Check(checkInfo, checkContent, checkerInfo);
+            return new Check(checkInfoMap, checkContent, checkerInfo);
         }
 
         // 根据类生成对应的post信息
@@ -81,19 +105,19 @@ namespace EZFAC_Service.Common
             StringBuilder edit = new StringBuilder("");
             StringBuilder chec = new StringBuilder("");
             string level = "0";
-            dictionary.Add("fileName", check.checkInfo.fileName);
-            dictionary.Add("type", check.checkInfo.type);
-            dictionary.Add("group", check.checkInfo.group);
-            dictionary.Add("number", check.checkInfo.number);
-
-            
+            // 设置检查头信息
+            foreach(string key in check.checkInfo.Keys)
+            {
+                dictionary.Add(key, check.checkInfo[key]);
+            }
+            // 设置检查内容信息
             for (int i = 0; i < check.checkContent.Count(); i++)
             {
                 edit.Append(check.checkContent[i].edit);
                 dictionary.Add(check.checkContent[i].name, check.checkContent[i].status);
             }
             dictionary.Add("checkEdit", edit.ToString());
-
+            //  设置检查审批信息
             edit = new StringBuilder("");
             for (int i = 0; i < check.checkerInfo.Count(); i++)
             {

@@ -10,7 +10,7 @@ namespace EZFAC_Service.model
     {
         public Check() { }
 
-        public Check(CheckInfo checkInfo, List<CheckContent> checkContent,
+        public Check(Dictionary<string, string> checkInfo, List<CheckContent> checkContent,
             List<CheckerInfo> checkerInfo)
         {
             this.checkInfo = checkInfo;
@@ -18,7 +18,7 @@ namespace EZFAC_Service.model
             this.checkerInfo = checkerInfo;
         }
 
-        public CheckInfo checkInfo { get; set; }
+        public Dictionary<string,string> checkInfo { get; set; }
         public List<CheckContent> checkContent { get; set; }
         public List<CheckerInfo> checkerInfo { get; set; }
     }

@@ -11,7 +11,7 @@ namespace EZFAC_Service.service
 {
     class CheckRecordService
     {
-        public static void handleFileDate(string ditPath)
+        public static void handleFileDate(string ditPath,string url)
         {
          //   WriteLog("开始获取数据:" + ditPath);
             DirectoryInfo dir = new DirectoryInfo(@ditPath);
@@ -20,16 +20,17 @@ namespace EZFAC_Service.service
             Dictionary<string, string> dic = null;
             for (int i = 0; i < files.Count(); i++)
             {
-                WriteLog(files[i].FullName);
-                check = CommonUtils.handleFile(files[i]);
-                WriteLog("输出数据1:");
-                dic = CommonUtils.getDictionary(check);
-                WriteLog("输出数据2:");
-                foreach (string key in dic.Keys)
+           //     WriteLog(files[i].FullName);
+                if (files[i].Extension.Equals(".ykk"))       // 判断是否为ykk文件
                 {
-                    WriteLog(key + "  ---> " + dic[key]);
+                    check = CommonUtils.handleFile(files[i]);
+                    dic = CommonUtils.getDictionary(check);
+                    foreach (string key in dic.Keys)
+                    {
+                        WriteLog(key + "  ---> " + dic[key]);
+                    }
+                    WebHandle.Post(url, dic);
                 }
-                WebHandle.Post("http://192.168.2.149:8800/add-checkRecord", dic);
               //  WriteLog(dic.Keys.ToList().ToString());
             }
         }
