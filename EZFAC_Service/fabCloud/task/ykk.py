@@ -46,3 +46,12 @@ def add_checkerInfo_task(cfg):
 			         'comments4': cfg['comments4'],'comments5': cfg['comments5']})
     return ret
 
+@app.task
+@use_db
+def get_userInfo_task():
+    line_lists = db.query_all("USER")
+    if len(line_lists) != 0:
+         return line_lists
+    else:
+        return None
+
