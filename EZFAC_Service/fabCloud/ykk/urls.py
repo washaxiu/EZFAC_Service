@@ -56,5 +56,6 @@ URLS = [
     # ykk
     (r"/get-userInfo", GetUserInfoHandler),
     (r"/get-checkRecord-list", GetCheckRecordListHandler),
+	(r"/add-checkRecord", AddCheckRecordHandler),
 
 ]
