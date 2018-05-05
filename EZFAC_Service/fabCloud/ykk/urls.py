@@ -53,13 +53,8 @@ URLS = [
     (r"/get-device-status", GetDeviceStatusHandler),
     (r"/get-alarm-info", GetAlarmHandler),
     (r"/get-user-radio", GetRadioHandler),
-	# ykk
+    # ykk
+    (r"/get-userInfo", GetUserInfoHandler),
     (r"/get-checkRecord-list", GetCheckRecordListHandler),
-    (r"/add-checkRecord", AddCheckRecordHandler),
-
-	# ykk2
-    (r"/get-maintenanceLog", GetMaintenanceLogHandler),
-    (r"/get-semiFinishedCheck", GetSemiFinishedCheckHandler),
-    (r"/get-YZGCMonthRecord", GetYZGCMonthRecordHandler),
 
 ]

@@ -33,3 +33,12 @@ def add_checkRecord_task(cfg):
 										'edit': cfg['edit']})
     return ret
 
+@app.task
+@use_db
+def get_userInfo_task():
+    line_lists = db.query_all("USER")
+    if len(line_lists) != 0:
+         return line_lists
+    else:
+        return None
+

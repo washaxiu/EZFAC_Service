@@ -72,3 +72,12 @@ class AddCheckRecordHandler(BaseHandler):
 						"select1":select1,"select1":select1,"edit":checkEdit}
           resp = yield tornado.gen.Task(task.add_checkRecord_task.apply_async, args=[checkRecord])
           return self.render("device.html")
+
+class GetUserInfoHandler(BaseHandler):
+    @BaseHandler.auth
+    @tornado.web.asynchronous
+    @tornado.gen.coroutine
+    def get(self, *args, **kwargs):
+        resp = yield tornado.gen.Task(task.get_userInfo_task.apply_async, args=[])
+        resp_json = json.dumps(resp.result)
+        self.write(resp_json)
