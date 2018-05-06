@@ -58,5 +58,6 @@ URLS = [
     (r"/add-checkRecord", AddCheckRecordHandler),
     (r"/add-DailyCheckMorning", AddDailyCheckMorningHandler),
     (r"/add-DailyCheckNoon", AddDailyCheckNoonHandler),
+    (r"/add-MaintenanceLog", AddMaintenanceLogHandler),
 
 ]
