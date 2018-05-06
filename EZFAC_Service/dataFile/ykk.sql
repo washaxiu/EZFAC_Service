@@ -83,10 +83,7 @@ CREATE TABLE IF NOT EXISTS  `ykk`.`DAILY_CHECK_MORNING`(
 DROP TABLE IF EXISTS `ykk`.`DAILY_CHECK_NOON` ;
 CREATE TABLE IF NOT EXISTS  `ykk`.`DAILY_CHECK_NOON`(
        `fileName`        VARCHAR(255) not null comment '文件名',
-       `type`            VARCHAR(255),
-	   `group1`          VARCHAR(255),
-	   `number`          VARCHAR(255),
-	   `machineModel`    VARCHAR(255),
+       `machineModel`    VARCHAR(255),
        `work`            VARCHAR(255),
        `first`           VARCHAR(255),
        `two`             VARCHAR(255),
@@ -104,7 +101,7 @@ CREATE TABLE IF NOT EXISTS  `ykk`.`DAILY_CHECK_NOON`(
        `ten`             VARCHAR(255),
        `eleven`          VARCHAR(255),
        `twelve`          VARCHAR(255),
-       `checkEdit`       VARCHAR(255),
+       `createDate`      VARCHAR(255),
 	   PRIMARY KEY (`fileName`) 
 );
 
@@ -112,8 +109,9 @@ CREATE TABLE IF NOT EXISTS  `ykk`.`DAILY_CHECK_NOON`(
 DROP TABLE IF EXISTS `ykk`.`YZGC_MONTH_RECORD` ;
 CREATE TABLE IF NOT EXISTS  `ykk`.`YZGC_MONTH_RECORD`(
        `fileName`        VARCHAR(255) not null comment '文件名',
-       `MachineGroup`    VARCHAR(255) comment '机组',
-       `MachineId`       VARCHAR(255) comment '机番',
+       `type`    VARCHAR(255) comment '点检类型',
+	   `group1`    VARCHAR(255) comment '机组',
+	   `number`    VARCHAR(255) comment '机番', 
        `Temp1`           VARCHAR(255) comment '机械可动侧LC部位漏油否',
        `Temp2`           VARCHAR(255) comment '作动油油量表（1/2上否）',
        `Temp3`           VARCHAR(255) comment '压动系统的PC装置漏油否',
@@ -122,7 +120,7 @@ CREATE TABLE IF NOT EXISTS  `ykk`.`YZGC_MONTH_RECORD`(
        `Temp6`           VARCHAR(255) comment '排序号',
        `Temp7`           VARCHAR(255) comment '齿轮传动的CP部位漏油否',
        `Temp8`           VARCHAR(255) comment '其他油、水配管情况',
-       `reviewInfor`     VARCHAR(255) comment '备注',
+	   `checkEdit`     VARCHAR(255) comment '检查标识',
 	   PRIMARY KEY (`fileName`)
 );
 
@@ -130,8 +128,9 @@ CREATE TABLE IF NOT EXISTS  `ykk`.`YZGC_MONTH_RECORD`(
 DROP TABLE IF EXISTS `ykk`.`SEMI_FINISHED_CHECK` ;
 CREATE TABLE IF NOT EXISTS  `ykk`.`SEMI_FINISHED_CHECK`(
        `fileName`        VARCHAR(255) not null comment '文件名',
-       `MachineGroup`    VARCHAR(255) comment '机组',
-       `machineNo`       VARCHAR(255) comment '机番',
+       `type`    VARCHAR(255) comment '点检类型',
+	   `group1`    VARCHAR(255) comment '机组',
+	   `number`    VARCHAR(255) comment '机番', 
        `item`            VARCHAR(255) comment 'ITEM',
        `personInCharge`  VARCHAR(255) comment '担当者',
        `separateStatus`  VARCHAR(255) comment '分离状态',
@@ -148,6 +147,7 @@ CREATE TABLE IF NOT EXISTS  `ykk`.`SEMI_FINISHED_CHECK`(
        `b6`              VARCHAR(255) comment '排出管道异物混入',
        `c8_c9_c10`       VARCHAR(255) comment '升降机异物混入',
        `coreWash`        VARCHAR(255) comment 'CORE洗净',
+	   `checkEdit`        VARCHAR(255) comment 'CORE洗净',
 	   PRIMARY KEY (`fileName`) 
 );
 
@@ -176,14 +176,4 @@ CREATE TABLE IF NOT EXISTS  `ykk`.`MAINTENANCE_LOG`(
        `MaintenResult`   VARCHAR(255),
        `checkEdit`       VARCHAR(255),
 	   PRIMARY KEY (`fileName`) 
-);
-
-/* 用户表 */
-DROP TABLE IF EXISTS `ykk`.`USER` ;
-CREATE TABLE IF NOT EXISTS  `ykk`.`USER`(
-       `UserName`        VARCHAR(255) not null comment '用户名',
-       `Password`           VARCHAR(255) comment '密码',
-       `level`         VARCHAR(255) comment '等级',
-       `authority`            VARCHAR(255) comment '权限',
-	   PRIMARY KEY (`userName`) 
 );
