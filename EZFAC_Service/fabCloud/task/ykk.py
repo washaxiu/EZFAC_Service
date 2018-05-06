@@ -78,3 +78,24 @@ def add_dailyCheckNoon_task(cfg):
 								'fifteen':cfg['fifteen'],'sixteen':cfg['sixteen'],'seventeen':cfg['seventeen'],'four':cfg['four'],
                                 'ten':cfg['ten'],'eleven':cfg['eleven'],'twelve':cfg['twelve'],'checkEdit':cfg['checkEdit']})
     return ret
+
+@app.task
+@use_db
+def add_SemiFinishCheck_task(cfg):
+    ret = False
+    if len(cfg) !=0:
+        ret = db.insertOrUpdate("SEMI_FINISHED_CHECK",{'fileName':cfg['fileName'],'type':cfg['type'],'group1':cfg['group1'],
+        'number':cfg['number'],'item':cfg['item'],'personInCharge':cfg['personInCharge'],'separateStatus':cfg['separateStatus'],
+        'gneck':cfg['gneck'],'HS_Num':cfg['HS_Num'],'remark':cfg['remark'],'surface':cfg['surface'],'damage_SB171':cfg['damage_SB171'],
+        'PINDamage':cfg['PINDamage'],'damage_SB251':cfg['damage_SB251'],'filling':cfg['filling'],'xingpian':cfg['xingpian'],'b3_b4_b5_b7':cfg['b3_b4_b5_b7'],
+        'b6':cfg['b6'],'c8_c9_c10':cfg['c8_c9_c10'],'coreWash':cfg['coreWash'],'checkEdit':cfg['checkEdit']})
+    return ret
+    
+@app.task
+@use_db
+def add_YZGCMonthRecord_task(cfg):
+    ret = False
+    if len(cfg) !=0:
+        ret = db.insertOrUpdate("YZGC_MONTH_RECORD",{'fileName':cfg['fileName'],'type':cfg['type'],'group1':cfg['group1'],'number':cfg['number'],'Temp1':cfg['Temp1'],'Temp2':cfg['Temp2'],
+        'Temp3':cfg['Temp3'],'Temp4':cfg['Temp4'],'Temp5':cfg['Temp5'],'Temp6':cfg['Temp6'],'Temp7':cfg['Temp7'],'Temp8':cfg['Temp8'],'checkEdit':cfg['checkEdit']})
+    return ret
