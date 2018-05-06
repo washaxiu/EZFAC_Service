@@ -14,7 +14,7 @@ import os
 def get_checkRecord_list_task(cfg):
     table_name = cfg['table_name']
     level = cfg['level']
-    line_lists = db.query_dateInfo(table_name, level)
+    line_lists = db.query_dataInfo(table_name, level)
     return line_lists
 
 @app.task
