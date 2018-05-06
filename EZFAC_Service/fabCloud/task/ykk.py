@@ -28,8 +28,24 @@ def add_checkRecord_task(cfg):
                                 'temp3': cfg['temp3'], 'loop1': cfg['loop1'],
                                 'loop2': cfg['loop2'], 'loop3': cfg['loop3'],
                                 'select1': cfg['select1'], 'plat1': cfg['plat1'],
-				'edit': cfg['edit']})
+                'edit': cfg['edit']})
     return ret
+    
+@app.task
+@use_db
+def add_dailyCheckMorning_task(cfg):
+    ret = False
+    if len(cfg) !=0:
+        ret = db.insertOrUpdate("DAILY_CHECK_MORNING",{'fileName': cfg['fileName'], 'type': cfg['type'],
+                                'group1': cfg['group1'], 'number': cfg['number'],'work':cfg['work'],'first':cfg['first'],
+                                'two':cfg['two'],'three':cfg['three'],'five':cfg['five'],'six':cfg['six'],
+                                'seven':cfg['seven'],'eight':cfg['eight'],'fourteen':cfg['fourteen'],'fifteen':cfg['fifteen'],
+                                'sixteen':cfg['sixteen'],'seventeen':cfg['seventeen'],'eighteen':cfg['eighteen'],'four':cfg['four'],
+                                'zhouqi':cfg['zhouqi'],'nozzleTemp':cfg['nozzleTemp'],'GOOSENECKTemp':cfg['GOOSENECKTemp'],
+                                'fuTemp1':cfg['fuTemp1'],'fuTemp2':cfg['fuTemp2'],
+                'edit': cfg['edit']})
+    return ret
+
 
 
 @app.task
@@ -39,9 +55,9 @@ def add_checkerInfo_task(cfg):
     if len(cfg) !=0:
         ret = db.insertOrUpdate("CHECKER_INFO",{'fileName': cfg['fileName'], 'edit': cfg['edit'], 'isCheck': cfg['isCheck'],'level': cfg['level'],
                                  'name1': cfg['name1'], 'name2': cfg['name2'], 'name3': cfg['name3'], 'name4': cfg['name4'],'name5': cfg['name5'],
-			         'date1': cfg['date1'], 'date2': cfg['date2'], 'date3': cfg['date3'], 'date4': cfg['date4'],'date5': cfg['date5'],
-			         'comments1': cfg['comments1'], 'comments2': cfg['comments2'], 'comments3': cfg['comments3'],
-			         'comments4': cfg['comments4'],'comments5': cfg['comments5']})
+                     'date1': cfg['date1'], 'date2': cfg['date2'], 'date3': cfg['date3'], 'date4': cfg['date4'],'date5': cfg['date5'],
+                     'comments1': cfg['comments1'], 'comments2': cfg['comments2'], 'comments3': cfg['comments3'],
+                     'comments4': cfg['comments4'],'comments5': cfg['comments5']})
     return ret
 
 @app.task

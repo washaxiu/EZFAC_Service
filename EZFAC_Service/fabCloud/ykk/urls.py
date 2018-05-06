@@ -12,7 +12,6 @@ from ykk.handle.Configure import *
 from ykk.handle.Monitor import *
 from ykk.handle.Dashboard import *
 from ykk.handle.Ykk import *
-from ykk.handle.Ykk2 import *
 
 URLS = [
     (r"/", HomeHandler),
@@ -56,6 +55,7 @@ URLS = [
     # ykk
     (r"/get-userInfo", GetUserInfoHandler),
     (r"/get-checkRecord-list", GetCheckRecordListHandler),
-	(r"/add-checkRecord", AddCheckRecordHandler),
+    (r"/add-checkRecord", AddCheckRecordHandler),
+    (r"/add-DailyCheckMorning", AddDailyCheckMorningHandler),
 
 ]
