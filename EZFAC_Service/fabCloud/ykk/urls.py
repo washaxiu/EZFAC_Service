@@ -60,4 +60,5 @@ URLS = [
     (r"/add-DailyCheckNoon", AddDailyCheckNoonHandler),
     (r"/add-SemiFinishCheck", AddSemiFinishCheckHandler),
     (r"/add-YZGCMonthRecord", AddYZGCMonthRecordHandler),
+	(r"/add-MaintenanceLog", AddMaintenanceLogHandler),
 ]

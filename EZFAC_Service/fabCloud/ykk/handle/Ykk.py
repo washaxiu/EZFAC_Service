@@ -348,3 +348,68 @@ class AddYZGCMonthRecordHandler(BaseHandler):
             back_info = 0
           respJson = json.dumps(back_info)
           self.write(respJson)
+
+class AddMaintenanceLogHandler(BaseHandler):
+    @BaseHandler.auth
+    @tornado.web.asynchronous
+    @tornado.gen.coroutine
+    def post(self, *args, **kwargs):
+          fileName = self.get_argument("fileName")
+          type = self.get_argument("type")
+          lineName = self.get_argument("lineName")
+          elementName = self.get_argument("elementName")
+          SHOTNumber = self.get_argument("SHOTNumber")
+          SB171 = self.get_argument("SB171")
+          SB172 = self.get_argument("SB172")
+          SB241 = self.get_argument("SB241")
+          SB242 = self.get_argument("SB242")
+          SB243 = self.get_argument("SB243")
+          SB244 = self.get_argument("SB244")
+          SB245 = self.get_argument("SB245")
+          SB251 = self.get_argument("SB251")
+          SB252 = self.get_argument("SB252")
+          SB253 = self.get_argument("SB253")
+          SB254 = self.get_argument("SB254")
+          SB255 = self.get_argument("SB255")
+          maintainReason = self.get_argument("maintainReason")
+          reviewInfor = self.get_argument("reviewInfor")
+          MaintenResult = self.get_argument("MaintenResult")
+          checkEdit = self.get_argument("checkEdit")
+
+          name1 = self.get_argument("name1")
+          name2 = self.get_argument("name2")
+          name3 = self.get_argument("name3")
+          name4 = self.get_argument("name4")
+          name5 = self.get_argument("name5")
+          date1 = self.get_argument("date1")
+          date2 = self.get_argument("date2")
+          date3 = self.get_argument("date3")
+          date4 = self.get_argument("date4")
+          date5 = self.get_argument("date5")
+          comments1 = self.get_argument("comments1")
+          comments2 = self.get_argument("comments2")
+          comments3 = self.get_argument("comments3")
+          comments4 = self.get_argument("comments4")
+          comments5 = self.get_argument("comments5")
+          checkerEdit = self.get_argument("checkerEdit")
+          check = self.get_argument("check")
+          level = self.get_argument("level")
+
+          checkRecord = {"fileName":fileName,"type":type,"lineName":lineName,"elementName":elementName,"SHOTNumber":SHOTNumber,
+                 "SB171":SB171,"SB172":SB172,"SB241":SB241,"SB242":SB242,"SB243":SB243,"SB244":SB244,"SB245":SB245,"SB251":SB251,
+				 "SB252":SB252,"SB253":SB253,"SB254":SB254,"SB255":SB255,"maintainReason":maintainReason,
+                 "reviewInfor":reviewInfor,"MaintenResult":MaintenResult,"checkEdit":checkEdit,}
+
+          checkerInfo = {"fileName":fileName,"name1":name1,"name2":name2,"name3":name3,"name4":name4,
+                 "name5":name5,"date1":date1,"date2":date2,"date3":date3,"date4":date4,
+                 "date5":date5,"comments1":comments1,"comments2":comments2,"comments3":comments3,
+                 "comments4":comments4,"comments5":comments5,"edit":checkerEdit,
+                 "isCheck":check,"level":level}
+          respCheck = yield tornado.gen.Task(task.add_maintenanceLog_task.apply_async, args=[checkRecord])
+          respChecker = yield tornado.gen.Task(task.add_checkerInfo_task.apply_async, args=[checkerInfo])
+          if respCheck.result == True and respChecker.result == True:
+            back_info = 1
+          else:
+            back_info = 0
+          respJson = json.dumps(back_info)
+          self.write(respJson)
