@@ -177,7 +177,7 @@ CREATE TABLE IF NOT EXISTS  `ykk`.`MAINTENANCE_LOG`(
 /* 用户表 */
 DROP TABLE IF EXISTS `ykk`.`USER` ;
 CREATE TABLE IF NOT EXISTS  `ykk`.`USER`(
-       `userName`        VARCHAR(255) not null comment '用户名',
+       `UserName`        VARCHAR(255) not null comment '用户名',
        `Password`           VARCHAR(255) comment '密码',
        `level`         VARCHAR(255) comment '等级',
        `authority`            VARCHAR(255) comment '权限',
