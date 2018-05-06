@@ -83,7 +83,10 @@ CREATE TABLE IF NOT EXISTS  `ykk`.`DAILY_CHECK_MORNING`(
 DROP TABLE IF EXISTS `ykk`.`DAILY_CHECK_NOON` ;
 CREATE TABLE IF NOT EXISTS  `ykk`.`DAILY_CHECK_NOON`(
        `fileName`        VARCHAR(255) not null comment '文件名',
-       `machineModel`    VARCHAR(255),
+       `type`            VARCHAR(255),
+	   `group1`          VARCHAR(255),
+	   `number`          VARCHAR(255),
+	   `machineModel`    VARCHAR(255),
        `work`            VARCHAR(255),
        `first`           VARCHAR(255),
        `two`             VARCHAR(255),
@@ -101,7 +104,7 @@ CREATE TABLE IF NOT EXISTS  `ykk`.`DAILY_CHECK_NOON`(
        `ten`             VARCHAR(255),
        `eleven`          VARCHAR(255),
        `twelve`          VARCHAR(255),
-       `createDate`      VARCHAR(255),
+       `checkEdit`       VARCHAR(255),
 	   PRIMARY KEY (`fileName`) 
 );
 

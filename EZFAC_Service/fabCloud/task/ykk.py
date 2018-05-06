@@ -69,3 +69,15 @@ def get_userInfo_task():
     else:
         return None
 
+@app.task
+@use_db
+def add_dailyCheckNoon_task(cfg):
+    ret = False
+    if len(cfg) !=0:
+        ret = db.insertOrUpdate("DAILY_CHECK_NOON",{'fileName': cfg['fileName'], 'type': cfg['type'],
+                                'group1': cfg['group1'], 'number': cfg['number'],'machineModel':cfg['machineModel'],
+								'work':cfg['work'],'first':cfg['first'],'two':cfg['two'],'three':cfg['three'],'five':cfg['five'],
+								'six':cfg['six'],'seven':cfg['seven'],'eight':cfg['eight'],'nine':cfg['nine'],'fourteen':cfg['fourteen'],
+								'fifteen':cfg['fifteen'],'sixteen':cfg['sixteen'],'seventeen':cfg['seventeen'],'four':cfg['four'],
+                                'ten':cfg['ten'],'eleven':cfg['eleven'],'twelve':cfg['twelve'],'checkEdit':cfg['checkEdit']})
+    return ret

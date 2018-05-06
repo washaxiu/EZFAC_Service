@@ -57,7 +57,7 @@ class AddCheckRecordHandler(BaseHandler):
           loop1 = self.get_argument("Loop1")
           loop2 = self.get_argument("Loop2")
           loop3 = self.get_argument("Loop3")
-          select1 = self.get_argument("Select1")
+          select1 = self.get_argument("select1")
           plat1 = self.get_argument("Plat1")
           checkEdit = self.get_argument("checkEdit")
           name1 = self.get_argument("name1")
@@ -154,6 +154,73 @@ class AddDailyCheckMorningHandler(BaseHandler):
              "comments4":comments4,"comments5":comments5,"edit":checkerEdit,
              "isCheck":check,"level":level}
           respCheck = yield tornado.gen.Task(task.add_dailyCheckMorning_task.apply_async, args=[checkRecord])
+          respChecker = yield tornado.gen.Task(task.add_checkerInfo_task.apply_async, args=[checkerInfo])
+          if respCheck.result == True and respChecker.result == True:
+            back_info = 1
+          else:
+            back_info = 0
+          respJson = json.dumps(back_info)
+          self.write(respJson)
+
+class AddDailyCheckNoonHandler(BaseHandler):
+    @BaseHandler.auth
+    @tornado.web.asynchronous
+    @tornado.gen.coroutine
+    def post(self, *args, **kwargs):
+          fileName = self.get_argument("fileName")
+          type = self.get_argument("type")
+          group1 = self.get_argument("group")
+          number = self.get_argument("number")
+          machineModel = self.get_argument("machineModel")
+          work = self.get_argument("work")
+          first = self.get_argument("first")
+          two = self.get_argument("two")
+          three = self.get_argument("three")
+          five = self.get_argument("five")
+          six = self.get_argument("six")
+          seven = self.get_argument("seven")
+          eight = self.get_argument("eight")
+          nine = self.get_argument("nine")
+          fourteen = self.get_argument("fourteen")
+          fifteen = self.get_argument("fifteen")
+          sixteen = self.get_argument("sixteen")
+          seventeen = self.get_argument("seventeen")
+          four = self.get_argument("four")
+          ten = self.get_argument("ten")
+          eleven = self.get_argument("eleven")
+          twelve = self.get_argument("twelve")
+          checkEdit = self.get_argument("checkEdit")
+
+          name1 = self.get_argument("name1")
+          name2 = self.get_argument("name2")
+          name3 = self.get_argument("name3")
+          name4 = self.get_argument("name4")
+          name5 = self.get_argument("name5")
+          date1 = self.get_argument("date1")
+          date2 = self.get_argument("date2")
+          date3 = self.get_argument("date3")
+          date4 = self.get_argument("date4")
+          date5 = self.get_argument("date5")
+          comments1 = self.get_argument("comments1")
+          comments2 = self.get_argument("comments2")
+          comments3 = self.get_argument("comments3")
+          comments4 = self.get_argument("comments4")
+          comments5 = self.get_argument("comments5")
+          checkerEdit = self.get_argument("checkerEdit")
+          check = self.get_argument("check")
+          level = self.get_argument("level")
+
+          checkRecord = {"fileName":fileName,"type":type,"group1":group1,"number":number,"machineModel":machineModel,
+                 "work":work,"first":first,"two":two,"three":three,"five":five,"six":six,"seven":seven,"eight":eight,
+				 "nine":nine,"fourteen":fourteen,"fifteen":fifteen,"sixteen":sixteen,"seventeen":seventeen,
+                 "four":four,"ten":ten,"eleven":eleven,"twelve":twelve,"checkEdit":checkEdit,}
+
+          checkerInfo = {"fileName":fileName,"name1":name1,"name2":name2,"name3":name3,"name4":name4,
+                 "name5":name5,"date1":date1,"date2":date2,"date3":date3,"date4":date4,
+                 "date5":date5,"comments1":comments1,"comments2":comments2,"comments3":comments3,
+                 "comments4":comments4,"comments5":comments5,"edit":checkerEdit,
+                 "isCheck":check,"level":level}
+          respCheck = yield tornado.gen.Task(task.add_dailyCheckNoon_task.apply_async, args=[checkRecord])
           respChecker = yield tornado.gen.Task(task.add_checkerInfo_task.apply_async, args=[checkerInfo])
           if respCheck.result == True and respChecker.result == True:
             back_info = 1
