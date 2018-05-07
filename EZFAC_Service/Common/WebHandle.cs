@@ -12,11 +12,6 @@ namespace EZFAC_Service.Common
     {
         public static string Post(string url, Dictionary<string, string> dic)
         {
-            string result = "";
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
-            req.Method = "POST";
-            req.ContentType = "application/x-www-form-urlencoded";
-            #region 添加Post 参数
             StringBuilder builder = new StringBuilder();
             int i = 0;
             foreach (var item in dic)
@@ -26,14 +21,11 @@ namespace EZFAC_Service.Common
                 builder.AppendFormat("{0}={1}", item.Key, item.Value);
                 i++;
             }
-            byte[] data = Encoding.ASCII.GetBytes(builder.ToString());
-            req.ContentLength = data.Length;
-            using (Stream reqStream = req.GetRequestStream())
-            {
-                reqStream.Write(data, 0, data.Length);
-                reqStream.Close();
-            }
-            #endregion
+            string postUrl = url + "?" + builder.ToString(),result=null;
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(postUrl);
+            req.Method = "POST";
+            req.ContentType = "application/x-www-form-urlencoded";
+
             HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
             Stream stream = resp.GetResponseStream();
             //获取响应内容

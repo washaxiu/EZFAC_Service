@@ -26,16 +26,35 @@ namespace EZFAC_Service.Common
             Dictionary<string, string> dic = null;
             for (int i = 0; i < files.Count(); i++)
             {
-                WriteLog(files[i].FullName);
-                if (files[i].Extension.Equals(".ykk"))       // 判断是否为ykk文件
+                   // 判断是否为ykk文件
+                if (files[i].Extension.Equals(".ykk") && files[i].LastWriteTime> handledTime)      
                 {
+                    WriteLog(files[i].FullName);
                     check = CommonUtils.handleFile(files[i]);
                     dic = CommonUtils.getDictionary(check);
-                    foreach (string key in dic.Keys)
+                   /*   foreach (string key in dic.Keys)
+                       {
+                           WriteLog(key + "--->" + dic[key]);
+                       }*/
+                    string result = null;
+                    try
                     {
-                        WriteLog(key + "  ---> " + dic[key]);
+                        result = WebHandle.Post(url, dic);
                     }
-                  //  WebHandle.Post(url, dic);
+                    catch
+                    {
+                        WriteLog("post 出错");
+                    }
+                    WriteLog(result);
+                  //  WriteLog(files[i].LastWriteTime.ToString());
+                    if (result!=null && result.Equals("1"))
+                    {
+                        files[i].LastWriteTime = handledTime;
+                    }
+                }
+                else
+                {
+                    files[i].LastWriteTime = handledTime;
                 }
                 //  WriteLog(dic.Keys.ToList().ToString());
             }
@@ -46,7 +65,7 @@ namespace EZFAC_Service.Common
         {
             StreamReader myStreamReader = new StreamReader(file.FullName);    // 读取文件数据
             string content = myStreamReader.ReadToEnd().Replace("   ", "").Replace("\"", "").Replace(",", "");
-            
+            myStreamReader.Close();
             string[] str = content.Split('\n');
             string[] st = null;
             Dictionary<string, string> checkInfoMap = new Dictionary<string, string>();

@@ -21,14 +21,16 @@ namespace EZFAC_Service
         private Timer timer1;
         private WebHandle wenHandle;
         public string sourcePath;
-        public static string checkRecordUrl = "http://192.168.2.149:8800/add-checkRecord";
+        public static string sourceUrl = "http://192.168.80.254:8800";
+        // public static string checkRecordUrl = "http://192.168.80.254:8800/add-checkRecord";
+
 
         public Service1()
         {
             InitializeComponent();
             timer1 = new Timer();
             wenHandle = new WebHandle();
-            timer1.Interval = 1000*5;
+            timer1.Interval = 1000*10;
             timer1.Elapsed += new ElapsedEventHandler(timer1_Elapsed);
             timer1.Enabled = true;
 
@@ -73,9 +75,16 @@ namespace EZFAC_Service
             //  WriteLog("图片目录:" + Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
 
             //    string checkRecordDir = dirPath + "/CheckRecord";
-            //   WriteLog(sb.ToString());
-            CommonUtils.handleFileDate(sourcePath+ "/CheckRecord", checkRecordUrl);
+            //   WriteLog(sb.ToString());  
+            CommonUtils.handleFileDate(sourcePath+ "/CheckRecord", sourceUrl + "/add-checkRecord");
+            CommonUtils.handleFileDate(sourcePath + "/DailyCheckMorning", sourceUrl+ "/add-DailyCheckMorning");
+            CommonUtils.handleFileDate(sourcePath + "/DailyCheckNoon", sourceUrl+ "/add-DailyCheckNoon"); 
+            CommonUtils.handleFileDate(sourcePath + "/MaintenanceLog", sourceUrl+ "/add-MaintenanceLog");
+            CommonUtils.handleFileDate(sourcePath + "/SemiFinishedCheck", sourceUrl+ "/add-SemiFinishCheck");
+            CommonUtils.handleFileDate(sourcePath + "/YZGCMonthRecord", sourceUrl+ "/add-YZGCMonthRecord");
+            
         }
+
 
         
 
