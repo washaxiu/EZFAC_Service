@@ -30,12 +30,19 @@ namespace EZFAC_Service.Common
                 if (files[i].Extension.Equals(".ykk") && files[i].LastWriteTime> handledTime)      
                 {
                     WriteLog(files[i].FullName);
-                    check = CommonUtils.handleFile(files[i]);
-                    dic = CommonUtils.getDictionary(check);
-                   /*   foreach (string key in dic.Keys)
-                       {
-                           WriteLog(key + "--->" + dic[key]);
-                       }*/
+                    try
+                    {
+                        check = CommonUtils.handleFile(files[i]);
+                        dic = CommonUtils.getDictionary(check);
+                    }
+                    catch (Exception ex)
+                    {
+                        WriteLog(ex.ToString());
+                    }
+                   /* foreach (string key in dic.Keys)
+                    {
+                         WriteLog(key + "--->" + dic[key]);
+                    }*/
                     string result = null;
                     try
                     {
