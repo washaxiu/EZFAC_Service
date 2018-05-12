@@ -21,7 +21,7 @@ namespace EZFAC_Service
         private Timer timer1;
         private WebHandle wenHandle;
         public string sourcePath;
-        public static string sourceUrl = "http://192.168.80.254:8800";
+        public static string sourceUrl = "http://192.168.2.110:8800";
         // public static string checkRecordUrl = "http://192.168.80.254:8800/add-checkRecord";
 
 
@@ -84,9 +84,6 @@ namespace EZFAC_Service
             CommonUtils.handleFileDate(sourcePath + "/YZGCMonthRecord", sourceUrl+ "/add-YZGCMonthRecord");
             
         }
-
-
-        
 
         private void WriteLog(string msg)
         {

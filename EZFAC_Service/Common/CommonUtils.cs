@@ -37,20 +37,20 @@ namespace EZFAC_Service.Common
                     }
                     catch (Exception ex)
                     {
-                        WriteLog(ex.ToString());
+                        WriteLog("文件处理出错: "+ex.ToString());
                     }
-                   /* foreach (string key in dic.Keys)
+                   foreach (string key in dic.Keys)
                     {
                          WriteLog(key + "--->" + dic[key]);
-                    }*/
+                    }
                     string result = null;
-                    try
+                    try 
                     {
                         result = WebHandle.Post(url, dic);
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        WriteLog("post 出错");
+                        WriteLog("数据处理出错: "+ex.ToString());
                     }
                     WriteLog(result);
                   //  WriteLog(files[i].LastWriteTime.ToString());
