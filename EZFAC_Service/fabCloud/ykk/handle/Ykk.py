@@ -60,6 +60,7 @@ class AddCheckRecordHandler(BaseHandler):
           select1 = self.get_argument("select1")
           plat1 = self.get_argument("Plat1")
           checkEdit = self.get_argument("checkEdit")
+
           name1 = self.get_argument("name1")
           name2 = self.get_argument("name2")
           name3 = self.get_argument("name3")
@@ -78,14 +79,15 @@ class AddCheckRecordHandler(BaseHandler):
           checkerEdit = self.get_argument("checkerEdit")
           check = self.get_argument("check")
           level = self.get_argument("level")
+
           checkRecord = {"fileName":fileName,"type":type,"group1":group1,"number":number,"temp1":temp1,
-                 "temp2":temp2,"temp3":temp3,"loop1":loop1,"loop2":loop2,"loop3":loop3,
-             "select1":select1,"plat1":plat1,"edit":checkEdit}
+						"temp2":temp2,"temp3":temp3,"loop1":loop1,"loop2":loop2,"loop3":loop3,
+						"select1":select1,"plat1":plat1,"checkEdit":checkEdit}
           checkerInfo = {"fileName":fileName,"name1":name1,"name2":name2,"name3":name3,"name4":name4,
-                 "name5":name5,"date1":date1,"date2":date2,"date3":date3,"date4":date4,
-             "date5":date5,"comments1":comments1,"comments2":comments2,"comments3":comments3,
-             "comments4":comments4,"comments5":comments5,"edit":checkerEdit,
-             "isCheck":check,"level":level}
+						"name5":name5,"date1":date1,"date2":date2,"date3":date3,"date4":date4,
+						"date5":date5,"comments1":comments1,"comments2":comments2,"comments3":comments3,
+						"comments4":comments4,"comments5":comments5,"checkerEdit":checkerEdit,
+						"isCheck":check,"level":level}
           respCheck = yield tornado.gen.Task(task.add_checkRecord_task.apply_async, args=[checkRecord])
           respChecker = yield tornado.gen.Task(task.add_checkerInfo_task.apply_async, args=[checkerInfo])
           if respCheck.result == True and respChecker.result == True:
@@ -144,15 +146,16 @@ class AddDailyCheckMorningHandler(BaseHandler):
           checkerEdit = self.get_argument("checkerEdit")
           check = self.get_argument("check")
           level = self.get_argument("level")
+
           checkRecord = {"fileName":fileName,"type":type,"group1":group1,"number":number,"machineModel":machineModel,"work":work,
-          "first":first,"two":two,"three":three,"five":five,"six":six,"seven":seven,"eight":eight,"fourteen":fourteen,
-          "fifteen":fifteen,"sixteen":sixteen,"seventeen":seventeen,"eighteen":eighteen,"four":four,"zhouqi":zhouqi,"nozzleTemp":nozzleTemp,
-          "GOOSENECKTemp":GOOSENECKTemp,"fuTemp1":fuTemp1,"fuTemp2":fuTemp2,"checkEdit":checkEdit,"edit":checkEdit}
+						 "first":first,"two":two,"three":three,"five":five,"six":six,"seven":seven,"eight":eight,"fourteen":fourteen,
+						 "fifteen":fifteen,"sixteen":sixteen,"seventeen":seventeen,"eighteen":eighteen,"four":four,"zhouqi":zhouqi,"nozzleTemp":nozzleTemp,
+						 "GOOSENECKTemp":GOOSENECKTemp,"fuTemp1":fuTemp1,"fuTemp2":fuTemp2,"checkEdit":checkEdit}
           checkerInfo = {"fileName":fileName,"name1":name1,"name2":name2,"name3":name3,"name4":name4,
-                 "name5":name5,"date1":date1,"date2":date2,"date3":date3,"date4":date4,
-             "date5":date5,"comments1":comments1,"comments2":comments2,"comments3":comments3,
-             "comments4":comments4,"comments5":comments5,"edit":checkerEdit,
-             "isCheck":check,"level":level}
+                         "name5":name5,"date1":date1,"date2":date2,"date3":date3,"date4":date4,
+                         "date5":date5,"comments1":comments1,"comments2":comments2,"comments3":comments3,
+                         "comments4":comments4,"comments5":comments5,"checkerEdit":checkerEdit,
+                         "isCheck":check,"level":level}
           respCheck = yield tornado.gen.Task(task.add_dailyCheckMorning_task.apply_async, args=[checkRecord])
           respChecker = yield tornado.gen.Task(task.add_checkerInfo_task.apply_async, args=[checkerInfo])
           if respCheck.result == True and respChecker.result == True:
@@ -218,7 +221,7 @@ class AddDailyCheckNoonHandler(BaseHandler):
           checkerInfo = {"fileName":fileName,"name1":name1,"name2":name2,"name3":name3,"name4":name4,
                  "name5":name5,"date1":date1,"date2":date2,"date3":date3,"date4":date4,
                  "date5":date5,"comments1":comments1,"comments2":comments2,"comments3":comments3,
-                 "comments4":comments4,"comments5":comments5,"edit":checkerEdit,
+                 "comments4":comments4,"comments5":comments5,"checkerEdit":checkerEdit,
                  "isCheck":check,"level":level}
           respCheck = yield tornado.gen.Task(task.add_dailyCheckNoon_task.apply_async, args=[checkRecord])
           respChecker = yield tornado.gen.Task(task.add_checkerInfo_task.apply_async, args=[checkerInfo])
@@ -254,8 +257,8 @@ class AddSemiFinishCheckHandler(BaseHandler):
           b6=self.get_argument("b6")
           c8_c9_c10=self.get_argument("c8_c9_c10")
           coreWash=self.get_argument("coreWash")
-
           checkEdit = self.get_argument("checkEdit")
+
           name1 = self.get_argument("name1")
           name2 = self.get_argument("name2")
           name3 = self.get_argument("name3")
@@ -283,7 +286,7 @@ class AddSemiFinishCheckHandler(BaseHandler):
           checkerInfo = {"fileName":fileName,"name1":name1,"name2":name2,"name3":name3,"name4":name4,
                  "name5":name5,"date1":date1,"date2":date2,"date3":date3,"date4":date4,
                  "date5":date5,"comments1":comments1,"comments2":comments2,"comments3":comments3,
-                 "comments4":comments4,"comments5":comments5,"edit":checkerEdit,
+                 "comments4":comments4,"comments5":comments5,"checkerEdit":checkerEdit,
                  "isCheck":check,"level":level}
           respCheck = yield tornado.gen.Task(task.add_SemiFinishCheck_task.apply_async, args=[checkRecord])
           respChecker = yield tornado.gen.Task(task.add_checkerInfo_task.apply_async, args=[checkerInfo])
@@ -311,8 +314,8 @@ class AddYZGCMonthRecordHandler(BaseHandler):
           Temp6=self.get_argument("Temp6")
           Temp7=self.get_argument("Temp7")
           Temp8=self.get_argument("Temp8")
-
           checkEdit = self.get_argument("checkEdit")
+
           name1 = self.get_argument("name1")
           name2 = self.get_argument("name2")
           name3 = self.get_argument("name3")
@@ -338,7 +341,7 @@ class AddYZGCMonthRecordHandler(BaseHandler):
           checkerInfo = {"fileName":fileName,"name1":name1,"name2":name2,"name3":name3,"name4":name4,
                  "name5":name5,"date1":date1,"date2":date2,"date3":date3,"date4":date4,
                  "date5":date5,"comments1":comments1,"comments2":comments2,"comments3":comments3,
-                 "comments4":comments4,"comments5":comments5,"edit":checkerEdit,
+                 "comments4":comments4,"comments5":comments5,"checkerEdit":checkerEdit,
                  "isCheck":check,"level":level}
           respCheck = yield tornado.gen.Task(task.add_YZGCMonthRecord_task.apply_async, args=[checkRecord])
           respChecker = yield tornado.gen.Task(task.add_checkerInfo_task.apply_async, args=[checkerInfo])
@@ -398,12 +401,12 @@ class AddMaintenanceLogHandler(BaseHandler):
           checkRecord = {"fileName":fileName,"type":type,"lineName":lineName,"elementName":elementName,"SHOTNumber":SHOTNumber,
                  "SB171":SB171,"SB172":SB172,"SB241":SB241,"SB242":SB242,"SB243":SB243,"SB244":SB244,"SB245":SB245,"SB251":SB251,
 				 "SB252":SB252,"SB253":SB253,"SB254":SB254,"SB255":SB255,"maintainReason":maintainReason,
-                 "reviewInfor":reviewInfor,"MaintenResult":MaintenResult,"checkEdit":checkEdit,}
+                 "reviewInfor":reviewInfor,"MaintenResult":MaintenResult,"checkEdit":checkEdit}
 
           checkerInfo = {"fileName":fileName,"name1":name1,"name2":name2,"name3":name3,"name4":name4,
                  "name5":name5,"date1":date1,"date2":date2,"date3":date3,"date4":date4,
                  "date5":date5,"comments1":comments1,"comments2":comments2,"comments3":comments3,
-                 "comments4":comments4,"comments5":comments5,"edit":checkerEdit,
+                 "comments4":comments4,"comments5":comments5,"checkerEdit":checkerEdit,
                  "isCheck":check,"level":level}
           respCheck = yield tornado.gen.Task(task.add_maintenanceLog_task.apply_async, args=[checkRecord])
           respChecker = yield tornado.gen.Task(task.add_checkerInfo_task.apply_async, args=[checkerInfo])
