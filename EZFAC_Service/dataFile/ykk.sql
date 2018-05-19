@@ -182,3 +182,44 @@ CREATE TABLE IF NOT EXISTS  `ykk`.`MAINTENANCE_LOG`(
        `checkEdit`       VARCHAR(255),
      PRIMARY KEY (`fileName`) 
 );
+
+/*  */
+DROP TABLE IF EXISTS `ykk`.`MAINTENANCE_LOG` ;
+CREATE TABLE IF NOT EXISTS  `ykk`.`MAINTENANCE_LOG`(
+       `fileName`        VARCHAR(255) not null comment '文件名',
+       `type`            VARCHAR(255),
+       `lineName`        VARCHAR(255),
+       `elementName`     VARCHAR(255),
+       `SHOTNumber`      VARCHAR(255),
+       `SB171`           VARCHAR(255),
+       `SB172`           VARCHAR(255),
+       `SB241`           VARCHAR(255),
+       `SB242`           VARCHAR(255),
+       `SB243`           VARCHAR(255),
+       `SB244`           VARCHAR(255),
+       `SB245`           VARCHAR(255),
+       `SB251`           VARCHAR(255),
+       `SB252`           VARCHAR(255),
+       `SB253`           VARCHAR(255),
+       `SB254`           VARCHAR(255),
+       `SB255`           VARCHAR(255),
+       `maintainReason`  VARCHAR(255),
+       `reviewInfor`     VARCHAR(255),
+       `MaintenResult`   VARCHAR(255),
+       `checkEdit`       VARCHAR(255),
+     PRIMARY KEY (`fileName`) 
+);
+
+/* 用户表 */
+DROP TABLE IF EXISTS `ykk`.`USER` ;
+CREATE TABLE IF NOT EXISTS  `ykk`.`USER`(
+       `UserName`        VARCHAR(255) not null comment '用户名',
+       `Password`           VARCHAR(255) comment '密码',
+       `level`         VARCHAR(255) comment '等级',
+       `authority`            VARCHAR(255) comment '权限',
+	   `UniqueId`            VARCHAR(255) comment '登陆ID',
+	   `e-mail`            VARCHAR(255) comment '邮箱',
+	   `CNName`            VARCHAR(255) comment '中文名',
+	   `date`            VARCHAR(255) comment '创建日期',
+	   PRIMARY KEY (`userName`) 
+);
