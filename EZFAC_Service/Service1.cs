@@ -34,20 +34,26 @@ namespace EZFAC_Service
             timer1.Elapsed += new ElapsedEventHandler(timer1_Elapsed);
             timer1.Enabled = true;
 
-            string path = "C:/Users/", dirPath = null;
-            DirectoryInfo dir = new DirectoryInfo(@path);
-
-            DirectoryInfo[] childDir = dir.GetDirectories();
-            FileInfo file = null;
-            for (int i = 0; i < childDir.Count(); i++)
+            try
             {
-                dirPath = childDir[i].FullName.Replace("\\", "/") + "/Pictures/user.json";
-                file = new FileInfo(@dirPath);
-                if (file.Exists)
+                string path = "C:/Users/", dirPath = null;
+                DirectoryInfo dir = new DirectoryInfo(@path);
+
+                DirectoryInfo[] childDir = dir.GetDirectories();
+                FileInfo file = null;
+                for (int i = 0; i < childDir.Count(); i++)
                 {
-                    WriteLog(dirPath);
-                    sourcePath = childDir[i].FullName.Replace("\\", "/")+ "/Pictures";
+                    dirPath = childDir[i].FullName.Replace("\\", "/") + "/Pictures/user.json";
+                    file = new FileInfo(@dirPath);
+                    if (file.Exists)
+                    {
+                        WriteLog(dirPath);
+                        sourcePath = childDir[i].FullName.Replace("\\", "/") + "/Pictures";
+                    }
                 }
+            }catch (Exception ex)
+            {
+                this.WriteLog(ex.ToString());
             }
         }
 
@@ -55,13 +61,13 @@ namespace EZFAC_Service
         {
             
             timer1.Start();
-            this.WriteLog("【服务启动】");
+          //  this.WriteLog("【服务启动】");
         }
 
         protected override void OnStop()
         {
             timer1.Stop();
-            this.WriteLog("【服务停止】");
+          //  this.WriteLog("【服务停止】");
         }
 
         private void timer1_Elapsed(object sender, ElapsedEventArgs e)

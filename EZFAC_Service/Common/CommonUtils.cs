@@ -29,7 +29,7 @@ namespace EZFAC_Service.Common
                    // 判断是否为ykk文件
                 if (files[i].Extension.Equals(".ykk") && files[i].LastWriteTime> handledTime)      
                 {
-                    WriteLog(files[i].FullName);
+                  //  WriteLog(files[i].FullName);
                     try
                     {
                         check = CommonUtils.handleFile(files[i]);
@@ -37,12 +37,13 @@ namespace EZFAC_Service.Common
                     }
                     catch (Exception ex)
                     {
-                        WriteLog("文件处理出错: "+ex.ToString());
+                        check = null;
+                        //  WriteLog("文件处理出错: "+ex.ToString());
                     }
-                   foreach (string key in dic.Keys)
+                 /*  foreach (string key in dic.Keys)
                     {
                          WriteLog(key + "--->" + dic[key]);
-                    }
+                    }*/
                     string result = null;
                     try 
                     {
@@ -50,9 +51,10 @@ namespace EZFAC_Service.Common
                     }
                     catch (Exception ex)
                     {
-                        WriteLog("数据处理出错: "+ex.ToString());
+                        check = null;
+                        // WriteLog("数据处理出错: "+ex.ToString());
                     }
-                    WriteLog(result);
+                  //  WriteLog(result);
                   //  WriteLog(files[i].LastWriteTime.ToString());
                     if (result!=null && result.Equals("1"))
                     {

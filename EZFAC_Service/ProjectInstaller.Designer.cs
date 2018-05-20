@@ -39,7 +39,7 @@
             // 
             // serviceInstaller1
             // 
-            this.serviceInstaller1.Description = "EZFAC看板数据获取及更新";
+            this.serviceInstaller1.Description = "EZFAC平板数据传输到服务器";
             this.serviceInstaller1.DisplayName = "EZFAC_Service";
             this.serviceInstaller1.ServiceName = "EZFAC_Service";
             this.serviceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
