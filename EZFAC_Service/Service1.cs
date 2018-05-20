@@ -47,13 +47,14 @@ namespace EZFAC_Service
                     file = new FileInfo(@dirPath);
                     if (file.Exists)
                     {
-                        WriteLog(dirPath);
                         sourcePath = childDir[i].FullName.Replace("\\", "/") + "/Pictures";
+                        break;
                     }
                 }
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                this.WriteLog(ex.ToString());
+                count = 1;
             }
         }
 
