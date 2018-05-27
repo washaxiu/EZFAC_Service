@@ -37,7 +37,7 @@ def add_dailyCheckMorning_task(cfg):
     ret = False
     if len(cfg) !=0:
         ret = db.insertOrUpdate("DAILY_CHECK_MORNING",{'fileName': cfg['fileName'], 'type': cfg['type'],
-                                'group1': cfg['group1'], 'number': cfg['number'],'work':cfg['work'],'first':cfg['first'],
+                                'group1': cfg['group1'], 'number': cfg['number'],'machineModel':cfg['machineModel'],'work':cfg['work'],'first':cfg['first'],
                                 'two':cfg['two'],'three':cfg['three'],'five':cfg['five'],'six':cfg['six'],
                                 'seven':cfg['seven'],'eight':cfg['eight'],'fourteen':cfg['fourteen'],'fifteen':cfg['fifteen'],
                                 'sixteen':cfg['sixteen'],'seventeen':cfg['seventeen'],'eighteen':cfg['eighteen'],'four':cfg['four'],

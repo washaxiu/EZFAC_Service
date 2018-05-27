@@ -21,51 +21,55 @@ namespace EZFAC_Service.Common
         {
             //   WriteLog("开始获取数据:" + ditPath);
             DirectoryInfo dir = new DirectoryInfo(@ditPath);
-            FileInfo[] files = dir.GetFiles();
-            Check check = null;
-            Dictionary<string, string> dic = null;
-            for (int i = 0; i < files.Count(); i++)
+            if (dir.Exists)
             {
-                   // 判断是否为ykk文件
-                if (files[i].Extension.Equals(".ykk") && files[i].LastWriteTime> handledTime)      
+                FileInfo[] files = dir.GetFiles();
+                Check check = null;
+                Dictionary<string, string> dic = null;
+               // WriteLog("目录: " + ditPath + " :   文件个数:" + files.Count());
+                for (int i = 0; i < files.Count(); i++)
                 {
-                  //  WriteLog(files[i].FullName);
-                    try
+                    // 判断是否为ykk文件
+                    if (files[i].Extension.Equals(".ykk") && files[i].LastWriteTime > handledTime)
                     {
-                        check = CommonUtils.handleFile(files[i]);
-                        dic = CommonUtils.getDictionary(check);
+                        WriteLog(files[i].FullName);
+                        try
+                        {
+                            check = CommonUtils.handleFile(files[i]);
+                            dic = CommonUtils.getDictionary(check);
+                        }
+                        catch (Exception ex)
+                        {
+                            check = null;
+                            WriteLog("文件处理出错: " + ex.ToString());
+                        }
+                         foreach (string key in dic.Keys)
+                           {
+                                WriteLog(key + "--->" + dic[key]);
+                           }
+                        string result = null;
+                        try
+                        {
+                            result = WebHandle.Post(url, dic);
+                        }
+                        catch (Exception ex)
+                        {
+                            check = null;
+                            WriteLog("数据处理出错: " + ex.ToString());
+                        }
+                        //  WriteLog(result);
+                        //  WriteLog(files[i].LastWriteTime.ToString());
+                        if (result != null && result.Equals("1"))
+                        {
+                            files[i].LastWriteTime = handledTime;
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        check = null;
-                        //  WriteLog("文件处理出错: "+ex.ToString());
-                    }
-                 /*  foreach (string key in dic.Keys)
-                    {
-                         WriteLog(key + "--->" + dic[key]);
-                    }*/
-                    string result = null;
-                    try 
-                    {
-                        result = WebHandle.Post(url, dic);
-                    }
-                    catch (Exception ex)
-                    {
-                        check = null;
-                        // WriteLog("数据处理出错: "+ex.ToString());
-                    }
-                  //  WriteLog(result);
-                  //  WriteLog(files[i].LastWriteTime.ToString());
-                    if (result!=null && result.Equals("1"))
+                    else
                     {
                         files[i].LastWriteTime = handledTime;
                     }
+                    //  WriteLog(dic.Keys.ToList().ToString());
                 }
-                else
-                {
-                    files[i].LastWriteTime = handledTime;
-                }
-                //  WriteLog(dic.Keys.ToList().ToString());
             }
         }
 
@@ -169,7 +173,7 @@ namespace EZFAC_Service.Common
         public static void WriteLog(string msg)
         {
             //该日志文件会存在windows服务程序目录下
-            string path = @"e:\log\";
+            string path = @"c:\log\";
             path += DateTime.Now.Year + "_" + DateTime.Now.Month + "_access_log.txt";
             FileInfo file = new FileInfo(path);
             if (!file.Exists)
