@@ -90,6 +90,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="dataFile\userData.sql" />
     <Content Include="dataFile\ykk.sql" />
     <Content Include="fabCloud\database\create_db.sql" />
   </ItemGroup>

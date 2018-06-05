@@ -1,0 +1,6 @@
+insert into USER values
+('zhaoyi','123456','1','CheckRecord_DailyCheckNoon_UnqualifiedReport_YZGCMonthRecord_SemiFinishedCheck_DailyCheckMorning_MaintenanceLog','000001','zhaoyi@123.com','zhaoyi','2016-01-23'),
+('chener','123456','2','ApprovalList_DailyCheckNoonList_UnqualifiedReportList_YZGCMonthRecordList_SemiFinishedCheckList_DailyCheckMorningList_MaintenanceLogList','000002','chener@123.com','chener','2016-01-23'),
+('zhangsan','123456','3','ApprovalList_DailyCheckNoonList_UnqualifiedReportList_YZGCMonthRecordList_SemiFinishedCheckList_DailyCheckMorningList_MaintenanceLogList','000003','zhangsan@123.com','zhangsan','2016-01-23'),
+('lisi','123456','4','ApprovalList_DailyCheckNoonList_UnqualifiedReportList_YZGCMonthRecordList_SemiFinishedCheckList_DailyCheckMorningList_MaintenanceLogList','000004','lisi@123.com','lisi','2016-01-23'),
+('wangwu','123456','5','ApprovalList_DailyCheckNoonList_UnqualifiedReportList_YZGCMonthRecordList_SemiFinishedCheckList_DailyCheckMorningList_MaintenanceLogList','000005','wangwu@123.com','wangwu','2016-01-23');
