@@ -132,6 +132,31 @@ def add_maintenanceLog_task(cfg):
 
 @app.task
 @use_db
-def get_deviceConfig_list_task(cfg):
-    line_lists = db.query_deviceConfigData()
-    return line_lists
+def get_deviceConfig_list_task():
+    all_group_cfgs = []
+    one_group_cfgs = db.query_deviceConfigData()
+    if one_group_cfgs:
+        for one_group_cfg in one_group_cfgs:
+            group_name_infos = {}
+            group_name_infos['id'] = str(one_group_cfg['id'])
+            group_name_infos['enable'] = one_group_cfg['enable']
+            group_name_infos['equipment_id'] = one_group_cfg['equipment_id']
+            group_name_infos['device_name'] = one_group_cfg['device_name']
+            group_name_infos['device_type_id'] = one_group_cfg['device_type_id']
+            group_name_infos['current_status'] = one_group_cfg['current_status']
+            group_name_infos['threshold'] = one_group_cfg['threshold']
+            group_name_infos['timeout'] = one_group_cfg['timeout']
+            group_name_infos['worktime'] = one_group_cfg['worktime']
+            group_name_infos['description'] = one_group_cfg['description']
+            group_name_infos['contact_group_id'] = one_group_cfg['contact_group_id']
+            group_name_infos['device_greentime'] = one_group_cfg['device_greentime']
+            group_name_infos['recordtime'] = str(one_group_cfg['recordtime'])
+            all_group_cfgs.append(group_name_infos)
+    else:
+        log.logger.debug("user_cfg is null")
+
+    if len(all_group_cfgs) == 0:
+        return None
+    else:
+        return all_group_cfgs
+
