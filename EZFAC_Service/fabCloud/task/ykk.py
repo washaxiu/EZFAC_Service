@@ -63,8 +63,25 @@ def add_checkerInfo_task(cfg):
 @app.task
 @use_db
 def get_userInfo_task():
-    line_lists = db.query_all("USER")
-    return line_lists
+    all_group_cfgs = []
+    one_group_cfgs = db.query_all("system_user")
+    if one_group_cfgs:
+        for one_group_cfg in one_group_cfgs:
+            group_name_infos = {}
+            group_name_infos['id'] = str(one_group_cfg['id'])
+            group_name_infos['user_name'] = one_group_cfg['user_name'] if one_group_cfg['user_name'] else ""
+            group_name_infos['user_password'] = one_group_cfg['user_password'] if one_group_cfg['user_password'] else ""
+            group_name_infos['email'] = one_group_cfg['email'] if one_group_cfg['email'] else ""
+            group_name_infos['level'] = one_group_cfg['level'] if one_group_cfg['level'] else ""
+            group_name_infos['authority'] = one_group_cfg['authority'] if one_group_cfg['authority'] else ""
+            all_group_cfgs.append(group_name_infos)
+    else:
+        log.logger.debug("user_cfg is null")
+
+    if len(all_group_cfgs) == 0:
+        return None
+    else:
+        return all_group_cfgs
 
 @app.task
 @use_db
