@@ -422,8 +422,6 @@ class GetDeviceConfigHandler(BaseHandler):
     @tornado.web.asynchronous
     @tornado.gen.coroutine
     def get(self, *args, **kwargs):
-        table_name = self.get_argument("table_name")
-        cfg = {"table_name":table_name}
-        resp = yield tornado.gen.Task(task.get_deviceConfig_list_task.apply_async, args=[cfg])
+        resp = yield tornado.gen.Task(task.get_deviceConfig_list_task.apply_async, args=[])
         resp_json = json.dumps(resp.result)
         self.write(resp_json)

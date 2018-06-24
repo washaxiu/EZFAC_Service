@@ -1093,8 +1093,8 @@ def insertOrUpdate(table, record):
         return False
 
 @with_db_connection
-def query_deviceConfigData(table):
-    sql_query = "SELECT * FROM " + table
+def query_deviceConfigData():
+    sql_query = "SELECT * FROM device_config"
     ret = _select(sql_query, False)
     if ret is False:
         ret = _select(sql_query, False)

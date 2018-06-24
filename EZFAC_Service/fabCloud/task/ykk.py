@@ -133,6 +133,5 @@ def add_maintenanceLog_task(cfg):
 @app.task
 @use_db
 def get_deviceConfig_list_task(cfg):
-    table_name = cfg['table_name']
-    line_lists = db.query_deviceConfigData(table_name)
+    line_lists = db.query_deviceConfigData()
     return line_lists
