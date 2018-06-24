@@ -1092,3 +1092,12 @@ def insertOrUpdate(table, record):
     else:
         return False
 
+@with_db_connection
+def query_deviceConfigData(table):
+    sql_query = "SELECT * FROM " + table
+    ret = _select(sql_query, False)
+    if ret is False:
+        ret = _select(sql_query, False)
+        if ret is False:
+            return None
+    return ret

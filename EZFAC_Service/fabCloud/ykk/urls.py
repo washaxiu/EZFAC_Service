@@ -61,4 +61,5 @@ URLS = [
     (r"/add-SemiFinishCheck", AddSemiFinishCheckHandler),
     (r"/add-YZGCMonthRecord", AddYZGCMonthRecordHandler),
 	(r"/add-MaintenanceLog", AddMaintenanceLogHandler),
+	(r"/get-deviceConfig", GetDeviceConfigHandler),
 ]

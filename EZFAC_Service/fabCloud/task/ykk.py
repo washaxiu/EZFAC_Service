@@ -112,3 +112,10 @@ def add_maintenanceLog_task(cfg):
 								'SB254':cfg['SB254'],'SB255':cfg['SB255'],'maintainReason':cfg['maintainReason'],'reviewInfor':cfg['reviewInfor'],
                                 'MaintenResult':cfg['MaintenResult'],'checkEdit':cfg['checkEdit']})
     return ret
+
+@app.task
+@use_db
+def get_deviceConfig_list_task(cfg):
+    table_name = cfg['table_name']
+    line_lists = db.query_deviceConfigData(table_name)
+    return line_lists

@@ -416,3 +416,14 @@ class AddMaintenanceLogHandler(BaseHandler):
             back_info = 0
           respJson = json.dumps(back_info)
           self.write(respJson)
+
+class GetDeviceConfigHandler(BaseHandler):
+    @BaseHandler.auth
+    @tornado.web.asynchronous
+    @tornado.gen.coroutine
+    def get(self, *args, **kwargs):
+        table_name = self.get_argument("table_name")
+        cfg = {"table_name":table_name}
+        resp = yield tornado.gen.Task(task.get_deviceConfig_list_task.apply_async, args=[cfg])
+        resp_json = json.dumps(resp.result)
+        self.write(resp_json)
